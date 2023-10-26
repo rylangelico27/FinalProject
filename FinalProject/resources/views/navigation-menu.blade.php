@@ -15,6 +15,12 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    <x-nav-link href="{{ route('cms') }}" :active="request()->routeIs('cms')">
+                        {{ __('Content Management System') }}
+                    </x-nav-link>
+
+                    <!-- <a class="nav-link font-semibold text-xl text-gray-800 leading-tight" href="{{ url('/product') }}">Products</a> -->
                 </div>
             </div>
 
