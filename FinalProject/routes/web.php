@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
+
+//
+use App\Models\Products;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,10 +30,17 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/cms', function () {
-        return view('cms');
-    })->name('cms');
+    Route::get('/content-management-system', function () {
+        $products = Products::all();
+        return view('contentmanagementsystem', compact('products'));
+    })->name('contentmanagementsystem');
 });
+
+Route::post('/content-management-system/add-product', [ProductController::class, 'AddProduct'])->name('AddProduct');
+
+Route::get('/content-management-system/edit-product/{id}', [ProductController::class, 'EditProduct']);
+Route::post('/content-management-system/update-product/{id}', [ProductController::class, 'UpdateProduct']);
+
 
 Route::get('/products', function () {
     return view('products');
@@ -47,21 +58,25 @@ Route::get('/wishlist', function () {
     return view('wishlist');
 });
 
+Route::get('/index', function () {
+    return view('index');
+});
+
 /*
 
     php artisan route:list
-        - 
+        -
 
     php artisan make:middleware EnsureTokenIsValid
         - located in app > Http > Middleware
 
 
-    
+
     Middleware Configuration
 
         To register middleware,
             php artisan make:middleware [MiddlewareName]
-        
+
         It will be located in app > Http > Middleware.
 
         To configure middleware for access, go to app > Http > Middleware > Kernel.php
@@ -78,13 +93,13 @@ Route::get('/wishlist', function () {
     Controller Configuration
         To register middleware,
             php artisan make:controller [ControllerName]
-            
+
         It will be located in app > Http > Controllers.
 
         To apply in routes/web.php,
             Route::get('/contact', [ContactController::class, 'index']);
                 where 'index' is the function name from ContactController
-            
+
             Make sure to include use App\Http\Controllers\ContactController; in routes/web.php
                 where you must include the particular controller
 
@@ -106,7 +121,7 @@ Route::get('/wishlist', function () {
             public function down(): void is DROP
 
             php artisan migrate
-        
+
         After migrating, it will migrate all the tables from the database > migrations + another table for the 'migrations' containing all the migration logs.
 
 
@@ -125,5 +140,23 @@ Route::get('/wishlist', function () {
 
         To access the profile pictures, change from .env file
             APP_URL=http://localhost --> APP_URL=http://localhost:8000
+
+
+    MVC - Model View Controller
+        Model:          Handle data logic and interactions with database
+        View:           What should be shown to the user (HTML / CSS / Blade)
+        Controller:     Handle requests
+
+
+    Laravel Tutorial:
+        https://www.youtube.com/@yelocode
+
+    Laravel 8, Jetstream, and Livewire
+        https://www.youtube.com/playlist?list=PL1JpS8jP1wgC8Uud_DKhL3jAtcPzeQ9pn
+
+
+    Component Configuration
+        To register a component,
+            php artisan make:component [ComponentName]
 
 */

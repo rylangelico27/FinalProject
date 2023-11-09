@@ -1,0 +1,192 @@
+
+body {   /* background of index.cshtml */
+    background-image: url('/storage/BackgroundLogReg.jpg');
+    background-size: cover;
+    height: 909px;
+}
+
+.logReg {
+    height: 820px; /*   870px */
+}
+
+.submitReg {
+    display: inline-block;
+    background: #ff523b;
+    color: #fff;
+    border-radius: 50px;
+    width: 100%;
+    height: 40px;
+    margin-top: -5px;
+    text-align: center;
+    line-height: 20px;
+    cursor: pointer;
+}
+
+    .submitReg:hover {
+        background: #9e2414d7;
+        color: #fff;
+    }
+
+
+.nextBtn, .backBtn {
+    outline-style: solid;
+    outline-color: #ff523b;
+}
+    .nextBtn:hover, .backBtn:hover {
+        outline-color: #9e2414d7;
+        background-color: #9e2414d7;
+    }
+
+.nextIcon, .backIcon {
+    color: #ff523b;
+}
+    .nextIcon:hover, .backIcon:hover {
+        color: #fff;
+    }
+
+.regSpan {
+    font-weight: bold;
+    font-size: x-large;
+    padding: 0 10px;
+    color: #ff523b;
+    cursor: pointer;
+    width: 100px;
+    display: inline-block;
+    font-size: 20px;
+}
+
+.formCont {
+    background-color: #fff;
+    width: 400px;
+    height: 500px;
+    text-align: center;
+    position: relative;
+    /*
+    padding: 20px 0;
+*/
+    margin: auto;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    box-shadow: 20px 20px 0 #ff443a;
+}
+
+    .formCont span {
+        font-weight: bold;
+        font-size: x-large;
+        padding: 0 10px;
+        color: #555;
+        cursor: pointer;
+        width: 100px;
+        display: inline-block;
+    }
+
+.formButt {
+    display: inline-block;
+}
+
+.formCont form {
+    max-width: 300px;
+    padding: 0 20px;
+    /*
+        display: inline-block;
+        top: 130px;
+    */
+    transition: transform 1s;
+}
+
+.innerFormLogin {
+
+}
+
+.innerForm {
+    /*
+        display: flex;
+        justify-content: center;
+    */
+    margin-left: -53px;
+    /*
+         margin-left: -48px;
+
+        INSERTED
+         margin-left: -5%;
+     */
+}
+
+    .innerForm input, .innerFormLogin input {
+        width: 100%;
+        height: 30px;
+        margin: 10px 0;
+        padding-left: 10px;
+        /*
+                padding: 0 10px;
+            */
+        border: 1px solid #ccc;
+    }
+
+    .innerForm, .submitReg {
+        width: 100%;
+        border: none;
+        cursor: pointer;
+        margin: 10px 0;
+    }
+
+        .innerForm, .submitReg:focus {
+            outline: none;
+        }
+
+#logForm {
+    /*
+    left: -220px;
+
+    left: -300px;
+*/
+}
+
+#regFormPart1 {
+    left: 102px;
+
+    /*
+        left: 55px;
+    */
+}
+
+#regFormPart2 {
+    position: relative;
+    left: 355px;
+    top: -190px;
+}
+
+#regFormPart3 {
+    position: relative;
+    left: 710px;
+    top: -450px;
+}
+
+.forgotPass {
+    /*
+        text-decoration: none;
+        color: #000000;
+    */
+    font-size: 16px;
+}
+
+#indicator {
+    width: 135px;
+    border: none;
+    background: #ff523b;
+    height: 3px;
+    /*
+        position: relative;
+        margin-top: 15px;
+        left: 5px;
+
+        transform: translateX(100px);
+        transition: transform 1s;
+    */
+}
+
+@media only screen and (max-width: 992px) {
+    .imgCompLogo {
+        display: none;
+    }
+}

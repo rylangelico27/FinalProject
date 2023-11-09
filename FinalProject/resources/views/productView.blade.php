@@ -23,7 +23,7 @@
                     <ul class="navbar-nav ms-auto d-flex justify-content-between align-items-center">
                         <li class="navText nav-item">
                             <a class="signOutButt dropdown-item text-light" asp-area="" asp-page="/Index">Sign Out</a>
-                        </li>                        
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -103,6 +103,6 @@
             </div>
         </div>
     </div>
-    
+
 </body>
 </html>
