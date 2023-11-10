@@ -26,38 +26,38 @@
                                 <div class="mb-3 container">
                                     <label for="inputCategory" class="col-form-label">Product Name</label>
                                     <div class="mb-3">
-                                        <input type="text" class="form-control" name="product_name" value="{{$products->product_name}}" required>
+                                        <input type="text" class="form-control" name="product_name" value="{{$products->product_name}}" onchange="enableUpdate()" required>
                                         @error('product_name')
-                                            <span class="text-danger">{{message}}</span>
+                                            <span class="text-danger">{{$message}}</span>
                                         @enderror
                                     </div>
 
                                     <label for="inputCategory" class="col-form-label">Product Description</label>
                                     <div class="mb-3">
-                                        <textarea class="form-control" aria-label="With textarea" name="product_description" required>{{$products->product_description}}</textarea>
+                                        <textarea class="form-control" aria-label="With textarea" name="product_description" onchange="enableUpdate()" required>{{$products->product_description}}</textarea>
                                         @error('product_description')
-                                            <span class="text-danger">{{message}}</span>
+                                            <span class="text-danger">{{$message}}</span>
                                         @enderror
                                     </div>
 
                                     <label for="inputCategory" class="col-form-label">Product Quantity</label>
                                     <div class="mb-3">
-                                        <input type="text" class="form-control" name="product_qty" value="{{$products->product_qty}}" required>
+                                        <input type="text" class="form-control" name="product_qty" value="{{$products->product_qty}}" onchange="enableUpdate()" required>
                                         @error('product_qty')
-                                            <span class="text-danger">{{message}}</span>
+                                            <span class="text-danger">{{$message}}</span>
                                         @enderror
                                     </div>
 
                                     <label for="inputCategory" class="col-form-label">Product Price</label>
                                     <div class="mb-3">
-                                        <input type="text" class="form-control" name="product_price" value="{{$products->product_price}}" required>
+                                        <input type="text" class="form-control" name="product_price" value="{{$products->product_price}}" onchange="enableUpdate()" required>
                                         @error('product_price')
-                                            <span class="text-danger">{{message}}</span>
+                                            <span class="text-danger">{{$message}}</span>
                                         @enderror
                                     </div>
 
                                     <div class="col-auto">
-                                        <button type="submit" class="btn btn-primary">Add Product</button>
+                                        <button type="submit" class="btn btn-primary" id="updateBtn" disabled>Update Product</button>
                                     </div>
                                 </div>
                             </form>
@@ -72,3 +72,13 @@
     </div>
 
 </x-app-layout>
+
+{{--
+@section('script')
+    <script>
+        function enableUpdate() {
+            document.getElementById("updateBtn").disabled = false;
+        }
+    </script>
+@endsection
+ --}}

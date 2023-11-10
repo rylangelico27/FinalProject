@@ -12,10 +12,14 @@ class ProductController extends Controller
 {
     //
 
+    public function index() {
+        //$categories = Category::all();
+        $products = Products::latest()->paginate('5');
+        return view('admin.product.contentmanagementsystem', compact('products'));
+    }
+
     public function AddProduct(Request $request)
     {
-        //var_dump($request);
-
         $validated = $request->validate([
             'product_name' => 'required|unique:products|max:50',
             'product_description' => 'required|max:255',
@@ -37,7 +41,7 @@ class ProductController extends Controller
     public function EditProduct($id) {
         //$categories = Category::all();
         $products = Products::find($id);
-        return view('updateproduct', compact('products'));
+        return view('admin.product.updateproduct', compact('products'));
     }
 
     public function UpdateProduct(Request $request, $id)
@@ -49,7 +53,13 @@ class ProductController extends Controller
             'product_price' => $request->product_price
         ]);
 
-        return Redirect()->route('contentmanagementsystem')->with('success','Product Updated Successful');
+        return Redirect()->route('AllProducts')->with('success','Product Updated Successful');
+    }
+
+    public function DeleteCategory(Request $request, $id)
+    {
+        $deleted = Products::destroy($id);
+        return Redirect()->back()->with('success','Category Deleted Successful');
     }
 
 }

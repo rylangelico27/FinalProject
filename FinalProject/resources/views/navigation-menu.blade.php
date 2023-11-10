@@ -16,7 +16,7 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    <x-nav-link href="{{ route('contentmanagementsystem') }}" :active="request()->routeIs('contentmanagementsystem')">
+                    <x-nav-link href="{{ route('AllProducts') }}" :active="request()->routeIs('AllProducts')">
                         {{ __('Content Management System') }}
                     </x-nav-link>
                 </div>
