@@ -17,6 +17,10 @@ return new class extends Migration
             $table->string('product_description');
             $table->integer('product_qty');
             $table->float('product_price');
+            $table->binary('product_front')->nullable();
+            $table->binary('product_right')->nullable();
+            $table->binary('product_left')->nullable();
+            $table->binary('product_back')->nullable();
             $table->timestamps();
             $table->softDeletes(); // Timestamp of when deleted/updated
         });

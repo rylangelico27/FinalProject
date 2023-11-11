@@ -19,7 +19,11 @@ class Products extends Model
         "product_name",
         "product_description",
         "product_qty",
-        "product_price"
+        "product_price",
+        'product_front',
+        'product_right',
+        'product_left',
+        'product_back'
     ];
 
     // Table Name

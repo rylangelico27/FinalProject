@@ -18,7 +18,8 @@ use App\Models\Products;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $products = Products::all();
+    return view('welcome', compact('products'));
 });
 
 Route::middleware([
@@ -39,17 +40,20 @@ Route::middleware([
 });
 
 // Display All Products
-Route::get('/content-management-system', [ProductController::class, 'index'])->name('AllProducts');
+    Route::get('/content-management-system', [ProductController::class, 'index'])->name('AllProducts');
 
-// Add
-Route::post('/content-management-system/add-product', [ProductController::class, 'AddProduct'])->name('AddProduct');
+// Add Form
+    Route::get('/content-management-system/add-product-form', [ProductController::class, 'AddForm'])->name('AddForm');
+// Add Query
+    Route::post('/content-management-system/add-product', [ProductController::class, 'AddProduct'])->name('AddProduct');
 
-// Edit / Update
-Route::get('/content-management-system/edit-product/{id}', [ProductController::class, 'EditProduct'])->name('EditProduct');
-Route::post('/content-management-system/update-product/{id}', [ProductController::class, 'UpdateProduct']);
+// Edit Form
+    Route::get('/content-management-system/edit-product/{id}', [ProductController::class, 'EditProduct'])->name('EditProduct');
+// Update Query
+    Route::post('/content-management-system/update-product/{id}', [ProductController::class, 'UpdateProduct']);
 
 // Delete
-Route::post('/content-management-system/delete-product/{id}', [ProductController::class, 'DeleteCategory'])->name('DeleteProduct');
+    Route::post('/content-management-system/delete-product/{id}', [ProductController::class, 'DeleteCategory'])->name('DeleteProduct');
 
 
 
