@@ -34,7 +34,7 @@
 
                                     <label for="inputCategory" class="col-form-label">Product Description</label>
                                     <div class="mb-3">
-                                        <textarea class="form-control" aria-label="With textarea" name="product_description" onchange="enableUpdate()">{{ $products->product_description }}</textarea>
+                                        <textarea class="form-control" aria-label="With textarea" name="product_description" onchange="enableUpdate()" rows="10">{{ $products->product_description }}</textarea>
                                         @error('product_description')
                                             <span class="text-danger">{{$message}}</span>
                                         @enderror
@@ -50,7 +50,7 @@
 
                                     <label for="inputCategory" class="col-form-label">Product Price</label>
                                     <div class="mb-3">
-                                        <input type="text" class="form-control" name="product_price" id="product_price" >
+                                        <input type="text" class="form-control" name="product_price" id="product_price" hidden>
                                         <input type="text" class="form-control" name="product_price_input" id="product_price_input" value="{{ $products->product_price }}" onchange="formatAmountUpdate(this)">
 
 

@@ -51,9 +51,9 @@
 
                                         <thead class="table-info align-middle">
                                             <tr class="table-primary">
-                                                <th class="" >Product</th> <!-- colspan="2" -->
+                                                <th class="" colspan="2">Product</th> <!-- colspan="2" -->
                                                 <th class="" >Created At</th>
-                                                <th class="" colspan="3">Action</th>
+                                                <th class="" colspan="">Action</th>
                                             </tr>
                                         </thead>
 
@@ -62,17 +62,18 @@
                                             @foreach ($products as $product)
                                                 <tr>
                                                     {{-- <th scope="row">{{$product->id}}</th> --}}
+                                                    <td>
+                                                        <img src="{{ asset('storage/product_images/' . $product->product_front) }}" alt="$product->product_front" style="height: 150px;">
+                                                    </td>
                                                     <td>{{$product->product_name}}</td>
                                                     <td>{{$product->created_at->diffForHumans()}}</td>
+
                                                     <td>
-                                                        <button type="button" class="btn btn-warning btn-md">View</button>
+                                                        <a href="{{ route('ViewProduct', $product->id) }}" class="btn btn-warning btn-md mx-1">View</a>
+                                                        <a href="{{ route('EditProduct', $product->id) }}" class="btn btn-primary btn-md mx-1">Update</a>
+                                                        <a class="btn btn-danger btn-md mx-1" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal">Remove</a>
                                                     </td>
-                                                    <td>
-                                                        <a href="{{ route('EditProduct', $product->id) }}" class="btn btn-primary btn-md">Update</a>
-                                                    </td>
-                                                    <td>
-                                                        <a class="btn btn-danger btn-md" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal">Remove</a>
-                                                    </td>
+
                                                 </tr>
 
                                                 <!-- Modal -->

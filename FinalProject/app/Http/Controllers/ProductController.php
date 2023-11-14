@@ -115,6 +115,11 @@ class ProductController extends Controller
         // return Redirect()->back()->with('success','Product Added Successful');
     }
 
+    public function ViewProduct($id) {
+        $products = Products::find($id);
+        return view('admin.product.viewproduct', compact('products'));
+    }
+
     public function EditProduct($id) {
         //$categories = Category::all();
         $products = Products::find($id);

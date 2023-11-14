@@ -18,7 +18,7 @@ use App\Models\Products;
 */
 
 Route::get('/', function () {
-    $products = Products::all();
+    $products = Products::latest()->paginate('5');
     return view('welcome', compact('products'));
 });
 
@@ -46,6 +46,9 @@ Route::middleware([
     Route::get('/content-management-system/add-product-form', [ProductController::class, 'AddForm'])->name('AddForm');
 // Add Query
     Route::post('/content-management-system/add-product', [ProductController::class, 'AddProduct'])->name('AddProduct');
+
+// View Form
+    Route::get('/content-management-system/view-product/{id}', [ProductController::class, 'ViewProduct'])->name('ViewProduct');
 
 // Edit Form
     Route::get('/content-management-system/edit-product/{id}', [ProductController::class, 'EditProduct'])->name('EditProduct');
