@@ -63,7 +63,7 @@
                                                 <tr>
                                                     {{-- <th scope="row">{{$product->id}}</th> --}}
                                                     <td>
-                                                        <img src="{{ asset('storage/product_images/' . $product->product_front) }}" alt="$product->product_front" style="height: 150px;">
+                                                        <img src="{{ asset('storage/product_images/' . $product->product_front) }}" alt="$product->product_front" style="height: 130px;">
                                                     </td>
                                                     <td>{{$product->product_name}}</td>
                                                     <td>{{$product->created_at->diffForHumans()}}</td>

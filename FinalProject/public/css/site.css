@@ -13,10 +13,6 @@ html {
   min-height: 100%;
 }
 
-body {
-  margin-bottom: 60px;
-}
-
 
 
 
@@ -29,9 +25,9 @@ body {
 
 
 
-/* 
-    [LOGIN/REGISTER PAGE] 
-    Index.cshtml 
+/*
+    [LOGIN/REGISTER PAGE]
+    Index.cshtml
 */
 
 .bg {   /* background of index.cshtml */
@@ -96,7 +92,7 @@ body {
     height: 500px;
     text-align: center;
     position: relative;
-    /*  
+    /*
     padding: 20px 0;
 */
     margin: auto;
@@ -122,7 +118,7 @@ body {
 .formCont form {
     max-width: 300px;
     padding: 0 20px;
-    /* 
+    /*
         display: inline-block;
         top: 130px;
     */
@@ -130,19 +126,19 @@ body {
 }
 
 .innerFormLogin {
-    
+
 }
 
 .innerForm {
-    /* 
+    /*
         display: flex;
         justify-content: center;
     */
     margin-left: -53px;
-    /* 
+    /*
          margin-left: -48px;
-        
-        INSERTED 
+
+        INSERTED
          margin-left: -5%;
      */
 }
@@ -178,8 +174,8 @@ body {
 }
 
 #regFormPart1 {
-    left: 102px; 
-    
+    left: 102px;
+
     /*
         left: 55px;
     */
@@ -229,9 +225,9 @@ body {
 
 
 
-/* 
-    [HOME PRODUCTS PAGE] 
-    Products.cshtml 
+/*
+    [HOME PRODUCTS PAGE]
+    Products.cshtml
 */
 
 .filterOption, .signOutButt, .socMedButt {
@@ -243,10 +239,6 @@ body {
         background: #e02c14d7;
         color: #fff;
     }
-
-.smallContainer {
-    width: 1200px;
-}
 
 .prodHead {
     text-align: center;
@@ -270,7 +262,6 @@ body {
 .filterButt {
     display: flex;
     justify-content: right;
-    margin-left: 67px;
 }
 
 .filterIcon {
@@ -278,9 +269,7 @@ body {
 }
 
 .onlStoProd {
-    flex-basis: 25%;
-    padding: 10px;
-    min-width: 200px;
+
     /*
         margin-bottom: 50px;
     */
@@ -338,7 +327,7 @@ body {
     }
 
 .paraPrice {
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .storeFoot {
@@ -366,9 +355,9 @@ body {
 
 
 
-/* 
-    [AUTHORS PAGE] 
-    Authors.cshtml 
+/*
+    [AUTHORS PAGE]
+    Authors.cshtml
 */
 
 .authorContainer {
@@ -429,9 +418,9 @@ body {
 
 
 
-/* 
-    [PRODUCTS PAGE] 
-    Product_[1-15].cshtml 
+/*
+    [PRODUCTS PAGE]
+    Product_[1-15].cshtml
 */
 
 .prodContainer {
@@ -560,9 +549,9 @@ body {
 
 
 
-/* 
-    [WISHLIST PAGE] 
-    Wishlist.cshtml 
+/*
+    [WISHLIST PAGE]
+    Wishlist.cshtml
 */
 
 .tableHeading {
@@ -590,9 +579,9 @@ body {
 
 
 
-/* 
-    [ORDER DETAILS PAGE] 
-    OrderDetails.cshtml 
+/*
+    [ORDER DETAILS PAGE]
+    OrderDetails.cshtml
 */
 .cartCont {
     margin: 50px auto;
@@ -627,9 +616,9 @@ td {
 
 
 
-/* 
-    [CART PAGE] 
-    Cart.cshtml 
+/*
+    [CART PAGE]
+    Cart.cshtml
 */
 
 .totalAmountTB {
@@ -655,14 +644,14 @@ td {
 
 
 
-/* 
-    [CHECKOUT PAGE] 
-    Checkout.cshtml 
+/*
+    [CHECKOUT PAGE]
+    Checkout.cshtml
 */
 
 .shadow {
     /*
-        
+
     */
     position: absolute;
     top: 35%;

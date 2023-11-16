@@ -18,7 +18,7 @@ use App\Models\Products;
 */
 
 Route::get('/', function () {
-    $products = Products::latest()->paginate('5');
+    $products = Products::latest()->paginate('25');
     return view('welcome', compact('products'));
 });
 
@@ -58,6 +58,13 @@ Route::middleware([
 // Delete
     Route::post('/content-management-system/delete-product/{id}', [ProductController::class, 'DeleteCategory'])->name('DeleteProduct');
 
+
+// FILTERING
+    Route::get('/low-to-high', [ProductController::class, 'LowHigh'])->name('LowHigh');
+    Route::get('/high-to-low', [ProductController::class, 'HighLow'])->name('HighLow');
+    // DEFAULT      Route::get('/new-to-old', [ProductController::class, 'NewOld'])->name('NewOld');
+    Route::get('/new-to-old', [ProductController::class, 'NewOld'])->name('NewOld');
+    Route::get('/old-to-new', [ProductController::class, 'OldNew'])->name('OldNew');
 
 
 Route::get('/products', function () {

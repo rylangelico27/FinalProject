@@ -27,8 +27,8 @@ class ProductController extends Controller
     {
         // Validate the request
         $validated = $request->validate([
-            'product_name' => 'required|unique:products|max:50',
-            'product_description' => 'required|max:500',
+            'product_name' => 'required|unique:products|max:100',
+            'product_description' => 'required|max:1000',
             'product_qty' => 'required',
             'product_price' => 'required',
             'product_front' => 'required|mimes:jpeg,png,jpg',
@@ -224,6 +224,27 @@ class ProductController extends Controller
     {
         $deleted = Products::destroy($id);
         return Redirect()->back()->with('success','Category Deleted Successful');
+    }
+
+    public function LowHigh() {
+        $products = Products::orderBy('product_price', 'asc')->get(); // 'asc' for ascending order
+        // $products = Products::orderBy('product_price', 'asc')->paginate('10'); // 'asc' for ascending order
+        return view('welcome', compact('products'));
+    }
+
+    public function HighLow() {
+        $products = Products::orderBy('product_price', 'desc')->get(); // 'desc' for descending order
+        return view('welcome', compact('products'));
+    }
+
+    public function NewOld() {
+        $products = Products::orderBy('created_at', 'desc')->get(); // 'desc' for newest order
+        return view('welcome', compact('products'));
+    }
+
+    public function OldNew() {
+        $products = Products::orderBy('created_at', 'asc')->get(); // 'asc' for oldest order
+        return view('welcome', compact('products'));
     }
 
 }
