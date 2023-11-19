@@ -20,7 +20,7 @@ use App\Models\Products;
 Route::get('/', function () {
     $products = Products::latest()->paginate('25');
     return view('welcome', compact('products'));
-});
+})->name('welcome');
 
 Route::middleware([
     'auth:sanctum',
@@ -65,6 +65,10 @@ Route::middleware([
     // DEFAULT      Route::get('/new-to-old', [ProductController::class, 'NewOld'])->name('NewOld');
     Route::get('/new-to-old', [ProductController::class, 'NewOld'])->name('NewOld');
     Route::get('/old-to-new', [ProductController::class, 'OldNew'])->name('OldNew');
+
+// Product View
+    Route::get('/view-product/{id}', [ProductController::class, 'ViewIndividualProduct'])->name('ViewIndividualProduct');
+
 
 
 Route::get('/products', function () {

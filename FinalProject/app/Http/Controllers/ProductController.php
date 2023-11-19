@@ -247,4 +247,11 @@ class ProductController extends Controller
         return view('welcome', compact('products'));
     }
 
+    public function ViewIndividualProduct($id) {
+        $products = Products::find($id);
+        return view('customer.product.productView', compact('products'));
+    }
+
+
+
 }
