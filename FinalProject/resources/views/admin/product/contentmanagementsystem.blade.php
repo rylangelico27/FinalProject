@@ -1,8 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Welcome, {{Auth::user()->name}}
-            {{-- to {{ __('Products') }} --}}
+           All Products
 
             <b style="float:right">
                 Total Products: <span class="badge text-bg-danger mx-2"> {{ count($products) }} </span>

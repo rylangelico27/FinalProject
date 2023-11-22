@@ -6,27 +6,43 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-mark class="block h-9 w-auto" />
                         {{-- ETech --}}
+                        <img src="{{ asset('images/logo.png') }}" style="height: 40px" class="block h-9 w-auto">
                     </a>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')" class="nav-link">
+                            Home
+                        </x-nav-link>
+    
+                        <x-nav-link class="nav-link">
+                            Users
+                        </x-nav-link>
+    
+                        <x-nav-link href="{{ route('AllProducts') }}" :active="request()->routeIs('AllProducts')" class="nav-link">
+                            Products
+                        </x-nav-link>
+    
+                        <x-nav-link class="nav-link">
+                            Transactions
+                        </x-nav-link>
+                    </div>
                 </div>
-
+                
+               
+                
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-
-
+                {{-- <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     @if (Auth::user()->name == "Admin")
-                        {{-- <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                        <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                             {{ __('Customer View') }}
-                        </x-nav-link> --}}
+                        </x-nav-link>
 
                         <x-nav-link href="{{ route('AllProducts') }}" :active="request()->routeIs('AllProducts')">
                             {{ __('Content Management System') }}
                         </x-nav-link>
+                        
                     @endif
-
-
-                </div>
+                </div> --}}
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -150,9 +166,26 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+            {{-- <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
-            </x-responsive-nav-link>
+            </x-responsive-nav-link> --}}
+        
+            <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')" class="nav-link">
+                Home
+            </x-nav-link>
+
+            <x-nav-link class="nav-link">
+                Users
+            </x-nav-link>
+
+            <x-nav-link href="{{ route('AllProducts') }}" :active="request()->routeIs('AllProducts')" class="nav-link">
+                Products
+            </x-nav-link>
+
+            <x-nav-link class="nav-link">
+                Transactions
+            </x-nav-link>
+
         </div>
 
         <!-- Responsive Settings Options -->

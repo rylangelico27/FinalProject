@@ -1,0 +1,22 @@
+.rowDash:hover {
+    transform: scale(1.05); /* Scale up on hover */
+    transition: transform 0.3s ease; /* Smooth transition effect */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Add a subtle shadow on hover */
+}
+.fas{
+    color: #FF523B;
+}
+.dashP{
+    color: black;
+}
+.nav-link {
+    color: white !important;
+    text-decoration: none !important;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: #FF523B !important;
+    transition: color 0.3s;
+    font-weight: bolder;
+}
