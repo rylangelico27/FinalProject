@@ -18,11 +18,8 @@ html {
     font-size: 28px;
 }
 
-.white-line {
-    height: 1px;
-    background-color: #000;
-    border: none;
-    margin: 0;
+.cartRow td {
+    text-align: center;
 }
 
 
@@ -560,6 +557,7 @@ html {
 
 .tableHeadingProd {
     font-size: large;
+    text-align: center;
 }
 
 .removeToWish {

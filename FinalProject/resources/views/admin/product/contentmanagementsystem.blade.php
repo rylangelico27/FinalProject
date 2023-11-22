@@ -30,7 +30,7 @@
                         </svg>
 
                         @if(session('success'))
-                            <div id="alertMessage" class="alert alert-success d-flex align-items-center fade show" role="alert">
+                            <div id="alertMessage" class="alert alert-success d-flex align-items-center fade show" role="alert" style="height: 50px;">
                                 <svg class="bi flex-shrink-0 me-2 w-10" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
                                 <div class="container">
                                     {{session('success')}}
@@ -51,9 +51,9 @@
 
                                         <thead class="table-info align-middle">
                                             <tr class="table-primary">
-                                                <th class="" colspan="2">Product</th> <!-- colspan="2" -->
-                                                <th class="" >Created At</th>
-                                                <th class="" colspan="">Action</th>
+                                                <th class="text-center" colspan="2">Product</th> <!-- colspan="2" -->
+                                                <th class="text-center" >Created At</th>
+                                                <th class="text-center" colspan="">Action</th>
                                             </tr>
                                         </thead>
 

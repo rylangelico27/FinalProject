@@ -5,10 +5,12 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-mark class="block h-9 w-auto" />
+                    <a class="navbar-brand text-light" href="{{ route('dashboard') }}">ETech</a>
+
+                    {{-- <a href="{{ route('dashboard') }}"> --}}
+                        {{-- <x-application-mark class="block h-9 w-auto" /> --}}
                         {{-- ETech --}}
-                    </a>
+                    {{-- </a> --}}
                 </div>
 
                 <!-- Navigation Links -->
@@ -30,6 +32,10 @@
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
+
+                <a href="{{ route('Wishlist') }}" class="navbarIcon text-light mx-2"><i class="bi bi-bag-heart-fill"></i></a>
+                <a href="{{ route('Cart') }}" class="navbarIcon text-light mx-2"><i class="bi bi-cart2"></i></a>
+
                 <!-- Teams Dropdown -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
                     <div class="ml-3 relative">

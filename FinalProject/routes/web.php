@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 //
@@ -28,7 +30,8 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        $products = Products::all();
+        return view('dashboard', compact('products')); // welcome
     })->name('dashboard');
 
     /*
@@ -68,6 +71,33 @@ Route::middleware([
 
 // Product View
     Route::get('/view-product/{id}', [ProductController::class, 'ViewIndividualProduct'])->name('ViewIndividualProduct');
+
+
+
+
+
+
+
+
+// Products in CART
+    Route::get('/dashboard/cart', [CartController::class, 'index'])->name('Cart');
+
+// Add to Cart Query
+    Route::post('/add-to-cart/{id}', [CartController::class, 'AddToCart'])->name('AddToCart');
+
+
+
+// Products in WISHLIST
+    Route::get('/dashboard/wishlist', [WishlistController::class, 'index'])->name('Wishlist');
+
+// Add to Wishlist Query
+    Route::post('/add-to-wishlist/{id}', [WishlistController::class, 'AddToWishlist'])->name('AddToWishlist');
+
+
+
+
+
+
 
 
 

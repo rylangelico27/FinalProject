@@ -249,7 +249,7 @@ class ProductController extends Controller
 
     public function ViewIndividualProduct($id) {
         $products = Products::find($id);
-        return view('customer.product.productView', compact('products'));
+        return view('customer.productView', compact('products'));
     }
 
 
