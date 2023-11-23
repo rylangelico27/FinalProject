@@ -141,89 +141,55 @@ class ProductController extends Controller
             'product_back.mimes' => 'The product image field only accepts .JPG. JPEG, .PNG.',
         ]);
 
-        $imagePathFront = null;
-        $imagePathRight = null;
-        $imagePathLeft = null;
-        $imagePathBack = null;
-
         // Find the product to update
         $product = Products::find($id);
 
-        // Handle file upload
+        // Update only when the file has been changed or added
         if ($request->hasFile('product_front')) {
-            // Delete the existing file
-            Storage::disk('public')->delete('product_images/' . $product->product_front);
-
-            // Upload the new file using a new filename
-            $uploadedFile = $request->file('product_front');
-            $originalFileName = $uploadedFile->getClientOriginalName();
-            $filename = Str::uuid() . '_' . $originalFileName;
-            $imagePathLocal = $uploadedFile->storeAs('product_images', $originalFileName, 'public');
-
-            // Update the database with the new filename
-            $imagePathFront = $originalFileName;
+            $this->deleteAndUploadFile($request->file('product_front'), $product->product_front);
+            $product->product_front = $request->file('product_front')->getClientOriginalName();
         }
 
         if ($request->hasFile('product_right')) {
-            // Delete the existing file
-            Storage::disk('public')->delete('product_images/' . $product->product_right);
-
-            // Upload the new file using a new filename
-            $uploadedFile = $request->file('product_right');
-            $originalFileName = $uploadedFile->getClientOriginalName();
-            $filename = Str::uuid() . '_' . $originalFileName;
-            $imagePathLocal = $uploadedFile->storeAs('product_images', $originalFileName, 'public');
-
-            // Update the database with the new filename
-            $imagePathRight = $originalFileName;
+            $this->deleteAndUploadFile($request->file('product_right'), $product->product_right);
+            $product->product_right = $request->file('product_right')->getClientOriginalName();
         }
 
         if ($request->hasFile('product_left')) {
-            // Delete the existing file
-            Storage::disk('public')->delete('product_images/' . $product->product_left);
-
-            // Upload the new file using a new filename
-            $uploadedFile = $request->file('product_left');
-            $originalFileName = $uploadedFile->getClientOriginalName();
-            $filename = Str::uuid() . '_' . $originalFileName;
-            $imagePathLocal = $uploadedFile->storeAs('product_images', $originalFileName, 'public');
-
-            // Update the database with the new filename
-            $imagePathLeft = $originalFileName;
+            $this->deleteAndUploadFile($request->file('product_left'), $product->product_left);
+            $product->product_left = $request->file('product_left')->getClientOriginalName();
         }
 
         if ($request->hasFile('product_back')) {
-            // Delete the existing file
-            Storage::disk('public')->delete('product_images/' . $product->product_back);
-
-            // Upload the new file using a new filename
-            $uploadedFile = $request->file('product_back');
-            $originalFileName = $uploadedFile->getClientOriginalName();
-            $filename = Str::uuid() . '_' . $originalFileName;
-            $imagePathLocal = $uploadedFile->storeAs('product_images', $originalFileName, 'public');
-
-            // Update the database with the new filename
-            $imagePathBack = $originalFileName;
+            $this->deleteAndUploadFile($request->file('product_back'), $product->product_back);
+            $product->product_back = $request->file('product_back')->getClientOriginalName();
         }
 
-        Products::find($id)->update([
+        // Update only the changed fields
+        $product->update([
             'product_name' => $request->product_name,
             'product_description' => $request->product_description,
             'product_qty' => $request->product_qty,
             'product_price' => $request->product_price,
-            'product_front' => $imagePathFront,
-            'product_right' => $imagePathRight,
-            'product_left' => $imagePathLeft,
-            'product_back' => $imagePathBack,
         ]);
 
-        return Redirect()->route('AllProducts')->with('success','Product Updated Successful');
+        return Redirect()->route('AllProducts')->with('success', 'Product Updated Successfully');
     }
 
-    public function DeleteCategory(Request $request, $id)
+    private function deleteAndUploadFile($uploadedFile, $existingFilePath)
+    {
+        // Delete the existing file
+        Storage::disk('public')->delete('product_images/' . $existingFilePath);
+
+        // Upload the new file using a new filename
+        $originalFileName = $uploadedFile->getClientOriginalName();
+        $uploadedFile->storeAs('product_images', $originalFileName, 'public');
+    }
+
+    public function DeleteProduct(Request $request, $id)
     {
         $deleted = Products::destroy($id);
-        return Redirect()->back()->with('success','Category Deleted Successful');
+        return Redirect()->back()->with('success','Product Deleted Successful');
     }
 
     public function LowHigh() {

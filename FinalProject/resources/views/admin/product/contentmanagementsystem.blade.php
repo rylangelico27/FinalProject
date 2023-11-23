@@ -1,16 +1,4 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Welcome, {{Auth::user()->name}}
-            {{-- to {{ __('Products') }} --}}
-
-            <b style="float:right">
-                Total Products: <span class="badge text-bg-danger mx-2"> {{ count($products) }} </span>
-            </b>
-
-        </h2>
-    </x-slot>
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="container">
@@ -31,7 +19,7 @@
 
                         @if(session('success'))
                             <div id="alertMessage" class="alert alert-success d-flex align-items-center fade show" role="alert" style="height: 50px;">
-                                <svg class="bi flex-shrink-0 me-2 w-10" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                                <svg class="bi flex-shrink-0 me-2 w-5" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
                                 <div class="container">
                                     {{session('success')}}
                                 </div>
@@ -71,36 +59,35 @@
                                                     <td>
                                                         <a href="{{ route('ViewProduct', $product->id) }}" class="btn btn-warning btn-md mx-1">View</a>
                                                         <a href="{{ route('EditProduct', $product->id) }}" class="btn btn-primary btn-md mx-1">Update</a>
-                                                        <a class="btn btn-danger btn-md mx-1" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal">Remove</a>
+                                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal{{$product->id}}">Delete</button>
+
+                                                        <!-- Modal -->
+                                                        <div class="modal fade" id="deleteConfirmationModal{{$product->id}}" tabindex="-1" aria-labelledby="exampleModalLabel{{$product->id}}" aria-hidden="true">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h1 class="modal-title fs-5" id="exampleModalLabel{{$product->id}}">Confirm Delete?</h1>
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        Are you sure you want to delete this product?
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <form action="{{ route('DeleteProduct', $product->id) }}" method="POST">
+                                                                            @csrf
+                                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
                                                     </td>
 
                                                 </tr>
 
-                                                <!-- Modal -->
-                                                <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
 
-                                                            <div class="modal-header">
-                                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm Delete?</h1>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-
-                                                            <div class="modal-body">
-                                                                Are you sure you want to delete this product?
-                                                            </div>
-
-                                                            <div class="modal-footer">
-                                                                <form action="{{ route('DeleteProduct', $product->id) }}" method="POST">
-                                                                @csrf
-                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                                    <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Delete</button>
-                                                                </form>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
 
                                             @endforeach
                                         </tbody>

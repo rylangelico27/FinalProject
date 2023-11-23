@@ -50,7 +50,7 @@
 
                                     <label for="inputCategory" class="col-form-label">Product Price</label>
                                     <div class="mb-3">
-                                        <input type="text" class="form-control" name="product_price" id="product_price" hidden>
+                                        <input type="text" class="form-control" name="product_price" id="product_price" value="{{ $products->product_price }}" hidden>
                                         <input type="text" class="form-control" name="product_price_input" id="product_price_input" value="{{ $products->product_price }}" onchange="formatAmountUpdate(this)">
 
 
@@ -63,7 +63,7 @@
                                         <div class="d-flex align-items-center mb-3">
                                             <input type="file" class="form-control" name="product_front" id="product_front" onchange="enableUpdateFront(this)"style="width: 108px;">
 
-                                            <input type="text" class="form-control text-center fst-italic" id="product_front_display" aria-label="Username" aria-describedby="addon-wrapping"  value="{{ $products->product_front }}" readonly style="width: 50%;"/>
+                                            <input type="text" class="form-control text-center fst-italic" name="product_front_display" id="product_front_display" aria-label="Username" aria-describedby="addon-wrapping" value="{{ $products->product_front }}" readonly style="width: 50%;"/>
 
                                             {{-- <img src="{{ asset('storage/product_images/' . $products->product_front) }}"> --}}
 
@@ -211,6 +211,7 @@
         function formatAmountUpdate(input) {
             // Remove non-numeric characters
             let value = input.value.replace(/[^0-9.]/g, '');
+            let originalInput = input.value;
 
             // Format the number with commas
             let formattedAmount = parseFloat(value).toLocaleString('en-US', {
@@ -223,7 +224,7 @@
             input.value = '₱ ' + formattedAmount;
 
             // Update the hidden input value for database storage
-            document.getElementById('product_price').value = value;
+            document.getElementById('product_price').value = originalInput;
 
             document.getElementById("updateBtn").disabled = false;
         }

@@ -31,7 +31,7 @@
         <header>
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark fixed-top">
                 <div class="container">
-                    <a class="navbar-brand text-light" href="">ETech</a>
+                    <a class="navbar-brand text-light" href="{{ route('dashboard') }}">ETech</a>
 
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -95,6 +95,28 @@
         </div>
 
         <div class="cartCont container">
+
+            <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+                <symbol id="check-circle-fill" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                </symbol>
+                <symbol id="info-fill" viewBox="0 0 16 16">
+                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                </symbol>
+                <symbol id="exclamation-triangle-fill" viewBox="0 0 16 16">
+                    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                </symbol>
+            </svg>
+
+            @if(session('success'))
+                <div id="alertMessage" class="alert alert-success d-flex align-items-center fade show m-auto mb-1" role="alert" style="height: 50px;">
+                    <svg class="bi flex-shrink-0 me-2 w-5" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                    <div class="container">
+                        {{session('success')}}
+                    </div>
+                </div>
+            @endif
+
             <div class="card" style="margin-bottom: 10%;">
                 <div class="card-body table-responsive">
 
@@ -114,6 +136,7 @@
                             @php
                                 $totalAmount = 0;
                                 $shippingFee = 500;
+                                $isThereRecords = 0;
 
                             @endphp
 
@@ -141,14 +164,14 @@
                                             <td>
                                                 <div class="d-flex justify-content-center">
                                                     <form method="POST" >
-                                                        <input name="" value="" hidden>
+                                                        @csrf
                                                         <input class="quanInput mx-3" type="number" id="newQuantity" name="prodQuantity" value="@userCart.quantity" min="1" hidden
                                                         onchange="enableBtn()">
                                                         <button class="removeToWish btn btn-danger mx-2" id="updateBtn" type="submit" disabled>Update</button>
                                                     </form>
 
-                                                    <form method="POST" >
-                                                        <input name="" value="" hidden>
+                                                    <form method="POST" action="{{ route('DeleteCart', $cart->id) }}">
+                                                        @csrf
                                                         <button class="removeToWish btn btn-danger mx-2" type="submit">Remove</button>
                                                     </form>
                                                 </div>
@@ -163,6 +186,10 @@
                                             @endphp
 
                                             <td id="product_price" style="text-align:center; font-weight: bold; font-size: large;"> {{ $formatted_number }} </td>
+
+                                            @php
+                                                $isThereRecords++;
+                                            @endphp
                                         </tr>
 
                                     @endif
@@ -172,55 +199,69 @@
                         </tbody>
                     </table>
 
-                    <div class="totalAmountTB d-flex justify-content-end">
-                        <table class="table ">
-                            <thead>
-                                <tr class="table-danger" style="height:auto;">
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                            </thead>
+                    @if ($isThereRecords > 0)
+                        <div class="totalAmountTB d-flex justify-content-end">
+                            <table class="table ">
+                                <thead>
+                                    <tr class="table-danger" style="height:auto;">
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
 
+                                <tbody>
+                                    <tr>
+                                        @php
+                                            // Format the number with currency symbol and commas
+                                            $formatted_number = '₱ ' . number_format($totalAmount, 2);
+                                        @endphp
+
+                                        <td style="text-align:left; font-size: large;">Subtotal</td>
+                                        <td style="text-align:right; font-size: large;">{{ $formatted_number }}</td>
+                                    </tr>
+
+                                    <tr>
+                                        @php
+                                            // Format the number with currency symbol and commas
+                                            $formatted_number = '₱ ' . number_format($shippingFee, 2);
+                                        @endphp
+
+                                        <td style="text-align:left; font-size: large;">Shipping Fee</td>
+                                        <td style="text-align:right; font-size: large;">{{ $formatted_number }}</td>
+                                    </tr>
+
+                                    <tr>
+                                        @php
+                                            $amountToPay = $totalAmount + $shippingFee;
+                                            // Format the number with currency symbol and commas
+                                            $formatted_number = '₱ ' . number_format($amountToPay, 2);
+                                        @endphp
+
+                                        <td style="font-size: large; font-weight: bold; text-align:left;">Amount To Pay</td>
+                                        <td style="font-size: large; font-weight: bold; text-align:right;">{{ $formatted_number }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="d-flex justify-content-end mb-5">
+                            <form method="POST">
+                                <button class="checkOut btn btn-danger" type="submit">Proceed to Checkout&#8594;</button>
+                            </form>
+                        </div>
+
+                    @else
+                        <table>
                             <tbody>
                                 <tr>
-                                    @php
-                                        // Format the number with currency symbol and commas
-                                        $formatted_number = '₱ ' . number_format($totalAmount, 2);
-                                    @endphp
-
-                                    <td style="text-align:left; font-size: large;">Subtotal</td>
-                                    <td style="text-align:right; font-size: large;">{{ $formatted_number }}</td>
-                                </tr>
-
-                                <tr>
-                                    @php
-                                        // Format the number with currency symbol and commas
-                                        $formatted_number = '₱ ' . number_format($shippingFee, 2);
-                                    @endphp
-
-                                    <td style="text-align:left; font-size: large;">Shipping Fee</td>
-                                    <td style="text-align:right; font-size: large;">{{ $formatted_number }}</td>
-                                </tr>
-
-                                <tr>
-                                    @php
-                                        $amountToPay = $totalAmount + $shippingFee;
-                                        // Format the number with currency symbol and commas
-                                        $formatted_number = '₱ ' . number_format($amountToPay, 2);
-                                    @endphp
-
-                                    <td style="font-size: large; font-weight: bold; text-align:left;">Amount To Pay</td>
-                                    <td style="font-size: large; font-weight: bold; text-align:right;">{{ $formatted_number }}</td>
+                                    <td class="text-center">No Items Found in Cart</td>
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
 
-                    <div class="d-flex justify-content-end mb-5">
-                        <form method="POST">
-                            <button class="checkOut btn btn-danger" type="submit">Proceed to Checkout&#8594;</button>
-                        </form>
-                    </div>
+                    @endif
+
+
 
                 </div>
             </div>
@@ -236,7 +277,15 @@
 
         <script type="text/javascript">
 
-
+            setTimeout(function() {
+                var alertMessage = document.getElementById("alertMessage");
+                alertMessage.classList.remove("show");
+                alertMessage.classList.add("fade");
+                // Optionally, remove the alert from the DOM after the fade-out animation
+                setTimeout(function() {
+                    alertMessage.remove();
+                }, 300); // Adjust the time based on your CSS transition duration
+            }, 3000);
 
         </script>
 

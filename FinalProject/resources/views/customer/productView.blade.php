@@ -28,7 +28,7 @@
         <header>
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark fixed-top">
                 <div class="container">
-                    <a class="navbar-brand text-light" href="">ETech</a>
+                    <a class="navbar-brand text-light" href="{{ route('dashboard') }}">ETech</a>
 
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -110,25 +110,35 @@
                     </div>
                 @endif
 
+                @if(session('info'))
+                    <div id="alertMessage" class="alert alert-info d-flex align-items-center fade show" role="alert" style="height: 50px;">
+                        <svg class="bi flex-shrink-0 me-2 w-5" role="img" aria-label="Success:"><use xlink:href="#info-fill"/></svg>
+                        <div class="container">
+                            {{session('info')}}
+                        </div>
+                    </div>
+                @endif
+
                 <div class="row d-flex justify-content-center align-items-center">
-                    <div class="imgColumn col-sm-10 col-md-8 col-lg-6 align-items-center">
+
+                    <div class="imgColumn card col-sm-10 col-md-8 col-lg-6 align-items-center">
                         <img class="imgProd" src="{{ asset('storage/product_images/' . $products->product_front) }}" alt="{{$products->product_front}}" width="100%" id="bigImg">
 
                         <div class="smallerRow row d-flex justify-content-between mt-5">
-                            <div class="smallerImg col">
-                                <img src="{{ asset('storage/product_images/' . $products->product_front) }}" alt="{{$products->product_front}}" width="100%" class="smallImg">
+                            <div class="smallerImg card col">
+                                <img src="{{ asset('storage/product_images/' . $products->product_front) }}" alt="{{$products->product_front}}" width="100%" class="smallImg my-3">
                             </div>
 
-                            <div class="smallerImg col">
-                                <img src="{{ asset('storage/product_images/' . $products->product_left) }}" alt="{{$products->product_left}}" width="100%" class="smallImg">
+                            <div class="smallerImg card col">
+                                <img src="{{ asset('storage/product_images/' . $products->product_left) }}" alt="{{$products->product_left}}" width="100%" class="smallImg my-3">
                             </div>
 
-                            <div class="smallerImg col">
-                                <img src="{{ asset('storage/product_images/' . $products->product_right) }}" alt="{{$products->product_right}}" width="100%" class="smallImg">
+                            <div class="smallerImg card col">
+                                <img src="{{ asset('storage/product_images/' . $products->product_right) }}" alt="{{$products->product_right}}" width="100%" class="smallImg my-3">
                             </div>
 
-                            <div class="smallerImg col">
-                                <img src="{{ asset('storage/product_images/' . $products->product_back) }}" alt="{{$products->product_back}}" width="100%" class="smallImg">
+                            <div class="smallerImg card col">
+                                <img src="{{ asset('storage/product_images/' . $products->product_back) }}" alt="{{$products->product_back}}" width="100%" class="smallImg my-3">
                             </div>
                         </div>
                     </div>
@@ -154,32 +164,34 @@
 
                         <h5 class="productPrice" id="product_price">{{ $products->product_price }}</h5>
 
-                        <form action="{{ route('AddToCart', $products->id) }}" method="POST">
-                            @csrf
+                        <div class="container d-flex">
+                            <form action="{{ route('AddToCart', $products->id) }}" method="POST">
+                                @csrf
 
-                            <div class="mb-3 d-flex align-items-center">
-                                <label for="inputCategory" class="col-form-label">Quantity</label>
-                                <input type="number" class="quanInputEveryProd mx-3" name="product_cart_qty" id="product_cart_qty" value="1" min="1" max="5">
-                                @error('product_cart_qty')
-                                    <span class="text-danger">{{$message}}</span>
-                                @enderror
-                            </div>
+                                <div class="mb-3 d-flex align-items-center">
+                                    <label for="inputCategory" class="col-form-label">Quantity</label>
+                                    <input type="number" class="quanInputEveryProd mx-3" name="product_cart_qty" id="product_cart_qty" value="1" min="1" max="5">
+                                    @error('product_cart_qty')
+                                        <span class="text-danger">{{$message}}</span>
+                                    @enderror
+                                </div>
 
-                            <button class="addToCart btn btn-lg px-5" type="submit" id="addToCart">Add to Cart</button>
+                                <button class="addToCart btn btn-lg px-5" type="submit" id="addToCart">Add to Cart</button>
 
-                            <!--
-                            <button class="addToCart btn btn-lg" type="submit" id="addCart">Add to Cart</button>
-                            <button class="addToCartSelected btn btn-lg" type="submit" id="addCartSelected">Remove from Cart</button>
+                                <!--
+                                <button class="addToCart btn btn-lg" type="submit" id="addCart">Add to Cart</button>
+                                <button class="addToCartSelected btn btn-lg" type="submit" id="addCartSelected">Remove from Cart</button>
 
-                            <button class="addToWishlist btn btn-lg" type="submit" id="addWish">Add to Wishlist</button>
-                            <button class="addToWishlistSelected btn btn-lg" type="submit" id="addWishSelected">Remove from Wishlist</button>
-                            -->
-                        </form>
+                                <button class="addToWishlist btn btn-lg" type="submit" id="addWish">Add to Wishlist</button>
+                                <button class="addToWishlistSelected btn btn-lg" type="submit" id="addWishSelected">Remove from Wishlist</button>
+                                -->
+                            </form>
 
-                        <form action="{{ route('AddToWishlist', $products->id) }}" method="POST">
-                            @csrf
-                            <button class="addToWishlist btn btn-lg px-5" type="submit" id="addToWishlist">Add to Wishlist</button>
-                        </form>
+                            <form class="mt-5" action="{{ route('AddToWishlist', $products->id) }}" method="POST">
+                                @csrf
+                                <button class="addToWishlist btn btn-lg px-5 mx-3 mt-2" type="submit" id="addToWishlist">Add to Wishlist</button>
+                            </form>
+                        </div>
 
 
                     </div>

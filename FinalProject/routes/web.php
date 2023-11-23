@@ -59,7 +59,7 @@ Route::middleware([
     Route::post('/content-management-system/update-product/{id}', [ProductController::class, 'UpdateProduct']);
 
 // Delete
-    Route::post('/content-management-system/delete-product/{id}', [ProductController::class, 'DeleteCategory'])->name('DeleteProduct');
+    Route::post('/content-management-system/delete-product/{id}', [ProductController::class, 'DeleteProduct'])->name('DeleteProduct');
 
 
 // FILTERING
@@ -85,6 +85,12 @@ Route::middleware([
 // Add to Cart Query
     Route::post('/add-to-cart/{id}', [CartController::class, 'AddToCart'])->name('AddToCart');
 
+// Remove from Cart Query
+    Route::post('/dashboard/cart/delete-from-cart/{id}', [CartController::class, 'DeleteCart'])->name('DeleteCart');
+
+// Update Cart Query
+
+
 
 
 // Products in WISHLIST
@@ -93,7 +99,10 @@ Route::middleware([
 // Add to Wishlist Query
     Route::post('/add-to-wishlist/{id}', [WishlistController::class, 'AddToWishlist'])->name('AddToWishlist');
 
+// Remove from Wishlist Query
+    Route::post('/dashboard/wishlist/delete-from-wishlist/{id}', [WishlistController::class, 'DeleteWishlist'])->name('DeleteWishlist');
 
+// Update Wishlist Query
 
 
 
