@@ -2,11 +2,14 @@
 
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\WishlistController;
+use App\Models\Cart;
 use Illuminate\Support\Facades\Route;
 
 //
 use App\Models\Products;
+use App\Models\Wishlist;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +23,14 @@ use App\Models\Products;
 */
 
 Route::get('/', function () {
-    $products = Products::latest()->paginate('25');
-    return view('welcome', compact('products'));
+    if (auth()->check()) {
+        return redirect()->route('dashboard');
+    }
+
+    else {
+        $products = Products::latest()->paginate('25');
+        return view('welcome', compact('products'));
+    }
 })->name('welcome');
 
 Route::middleware([
@@ -30,8 +39,11 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        $products = Products::all();
-        return view('dashboard', compact('products')); // welcome
+        //$products = Products::all();
+        $products = Products::latest()->paginate('25');
+        $carts = Cart::all();
+        $wishlists = Wishlist::all();
+        return view('dashboard', compact('products', 'carts', 'wishlists')); // welcome
     })->name('dashboard');
 
     /*
@@ -43,23 +55,26 @@ Route::middleware([
 });
 
 // Display All Products
-    Route::get('/content-management-system', [ProductController::class, 'index'])->name('AllProducts');
+    Route::get('/content-management-system', [ProductController::class, 'index'])->name('AllProducts')->middleware('checkUserRole:admin');
+    Route::get('/content-management-system/archive', [ProductController::class, 'ArchivedProducts'])->name('ArchivedProducts')->middleware('checkUserRole:admin');
 
 // Add Form
-    Route::get('/content-management-system/add-product-form', [ProductController::class, 'AddForm'])->name('AddForm');
+    Route::get('/content-management-system/add-product-form', [ProductController::class, 'AddForm'])->name('AddForm')->middleware('checkUserRole:admin');
 // Add Query
-    Route::post('/content-management-system/add-product', [ProductController::class, 'AddProduct'])->name('AddProduct');
+    Route::post('/content-management-system/add-product', [ProductController::class, 'AddProduct'])->name('AddProduct')->middleware('checkUserRole:admin');
 
 // View Form
-    Route::get('/content-management-system/view-product/{id}', [ProductController::class, 'ViewProduct'])->name('ViewProduct');
+    Route::get('/content-management-system/view-product/{id}', [ProductController::class, 'ViewProduct'])->name('ViewProduct')->middleware('checkUserRole:admin');
 
 // Edit Form
-    Route::get('/content-management-system/edit-product/{id}', [ProductController::class, 'EditProduct'])->name('EditProduct');
+    Route::get('/content-management-system/edit-product/{id}', [ProductController::class, 'EditProduct'])->name('EditProduct')->middleware('checkUserRole:admin');
 // Update Query
-    Route::post('/content-management-system/update-product/{id}', [ProductController::class, 'UpdateProduct']);
+    Route::post('/content-management-system/update-product/{id}', [ProductController::class, 'UpdateProduct'])->middleware('checkUserRole:admin');
 
 // Delete
-    Route::post('/content-management-system/delete-product/{id}', [ProductController::class, 'DeleteProduct'])->name('DeleteProduct');
+    Route::post('/content-management-system/archive-product/{id}', [ProductController::class, 'DeleteProduct'])->name('DeleteProduct')->middleware('checkUserRole:admin');
+    Route::post('/content-management-system/restore-product/{id}', [ProductController::class, 'RestoreProduct'])->name('RestoreProduct')->middleware('checkUserRole:admin');
+    Route::post('/content-management-system/delete-product/{id}', [ProductController::class, 'DeleteProductPermanently'])->name('DeleteProductPermanently')->middleware('checkUserRole:admin');
 
 
 // FILTERING
@@ -84,12 +99,15 @@ Route::middleware([
 
 // Add to Cart Query
     Route::post('/add-to-cart/{id}', [CartController::class, 'AddToCart'])->name('AddToCart');
+    Route::post('/dashboard/add-to-cart/{id}', [CartController::class, 'AddToCartWelcomeView'])->name('AddToCartWelcomeView');
 
 // Remove from Cart Query
     Route::post('/dashboard/cart/delete-from-cart/{id}', [CartController::class, 'DeleteCart'])->name('DeleteCart');
+    Route::post('/delete-from-cart/{cartID}/{id}', [CartController::class, 'DeleteCartProductView'])->name('DeleteCartProductView');
+    Route::post('/dashboard/delete-from-cart/{cartID}/{id}', [CartController::class, 'DeleteCartWelcomeView'])->name('DeleteCartWelcomeView');
 
 // Update Cart Query
-
+    Route::post('/cart/update-cart/{id}', [CartController::class, 'UpdateCart'])->name('UpdateCart');
 
 
 
@@ -98,14 +116,25 @@ Route::middleware([
 
 // Add to Wishlist Query
     Route::post('/add-to-wishlist/{id}', [WishlistController::class, 'AddToWishlist'])->name('AddToWishlist');
+    Route::post('/dashboard/add-to-wishlist/{id}', [WishlistController::class, 'AddToWishlistWelcomeView'])->name('AddToWishlistWelcomeView');
 
 // Remove from Wishlist Query
     Route::post('/dashboard/wishlist/delete-from-wishlist/{id}', [WishlistController::class, 'DeleteWishlist'])->name('DeleteWishlist');
+    Route::post('/delete-from-wishlist/{wishID}/{id}', [WishlistController::class, 'DeleteWishlistProductView'])->name('DeleteWishlistProductView');
+    Route::post('/dashboard/delete-from-wishlist/{wishID}/{id}', [WishlistController::class, 'DeleteWishlistWelcomeView'])->name('DeleteWishlistWelcomeView');
 
 // Update Wishlist Query
 
 
 
+
+// Proceed to Checkout (from Cart)
+    Route::get('/dashboard/checkout/{amount}', [OrderController::class, 'index'])->name('ProceedToCheckout');
+
+// Order History
+    Route::get('/dashboard/order-history', function () {
+        return view('customer.orderhistory');
+    }) -> name('OrderHistory');
 
 
 

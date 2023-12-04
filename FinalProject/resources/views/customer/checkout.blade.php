@@ -31,11 +31,7 @@
         <header>
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark fixed-top">
                 <div class="container">
-                    @auth
-                        <a class="navbar-brand text-light" href="{{ route('dashboard') }}">ETech</a>
-                    @else
-                        <a class="navbar-brand text-light" href="{{ route('welcome') }}">ETech</a>
-                    @endauth
+                    <a class="navbar-brand text-light" href="{{ route('dashboard') }}">ETech</a>
 
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -47,22 +43,8 @@
                             @if (Route::has('login'))
                                 @auth
 
-                                    {{--
                                     <li class="navText nav-item">
                                         <a href="{{ url('/dashboard') }}" class="dropdown-item text-light font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
-                                    </li>
-                                    --}}
-
-                                    <li class="navText nav-item">
-                                        <a href="{{ route('OrderHistory') }}" class="navbarIcon text-light mx-2"><i class="bi bi-clock-history"></i></a>
-                                    </li>
-
-                                    <li class="navText nav-item">
-                                        <a href="{{ route('Wishlist') }}" class="navbarIcon text-light mx-2"><i class="bi bi-bag-heart-fill"></i></a>
-                                    </li>
-
-                                    <li class="navText nav-item">
-                                        <a href="{{ route('Cart') }}" class="navbarIcon text-light mx-2"><i class="bi bi-cart2"></i></a>
                                     </li>
 
                                 @else
@@ -106,168 +88,122 @@
             </nav>
         </header>
 
-        {{-- PRODUCT VIEW --}}
-        <div class="d-flex align-items-center" style="height: 885px;">
-            <div class="prodContainer container align-items-center">
+        {{-- WISHLIST VIEW --}}
 
-                <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
-                    <symbol id="check-circle-fill" viewBox="0 0 16 16">
-                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                    </symbol>
-                    <symbol id="info-fill" viewBox="0 0 16 16">
-                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-                    </symbol>
-                    <symbol id="exclamation-triangle-fill" viewBox="0 0 16 16">
-                        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-                    </symbol>
-                </svg>
+        <div class="authorContainer m-auto">
+            <h2 class="prodHead" style="margin-top:100px;">Shipping Information</h2>
+        </div>
 
-                @if(session('success'))
-                    <div id="alertMessage" class="alert alert-success d-flex align-items-center fade show" role="alert" style="height: 50px;">
-                        <svg class="bi flex-shrink-0 me-2 w-5" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-                        <div class="container">
-                            {{session('success')}}
-                        </div>
+        <div class="cartCont container">
+
+            <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+                <symbol id="check-circle-fill" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                </symbol>
+                <symbol id="info-fill" viewBox="0 0 16 16">
+                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                </symbol>
+                <symbol id="exclamation-triangle-fill" viewBox="0 0 16 16">
+                    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                </symbol>
+            </svg>
+
+            @if(session('success'))
+                <div id="alertMessage" class="alert alert-success d-flex align-items-center fade show w-75 m-auto mb-1" role="alert" style="height: 50px;">
+                    <svg class="bi flex-shrink-0 me-2 w-5" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                    <div class="container">
+                        {{session('success')}}
                     </div>
-                @endif
+                </div>
+            @endif
 
-                @if(session('info'))
-                    <div id="alertMessage" class="alert alert-info d-flex align-items-center fade show" role="alert" style="height: 50px;">
-                        <svg class="bi flex-shrink-0 me-2 w-5" role="img" aria-label="Success:"><use xlink:href="#info-fill"/></svg>
-                        <div class="container">
-                            {{session('info')}}
-                        </div>
-                    </div>
-                @endif
+            <div class="card w-75 m-auto" style="margin-bottom: 10%;">
+                <div class="card-body table-responsive">
 
-                <div class="row d-flex justify-content-center align-items-center">
+                    <table class="table table-hover fs-5">
+                        <thead class="align-middle">
+                            <tr class="table-danger">
+                                <th class="tableHeadingProd" colspan="2"></th>
+                            </tr>
+                        </thead>
 
-                    <div class="imgColumn card col-sm-10 col-md-8 col-lg-6 align-items-center">
-                        <img class="imgProd" src="{{ asset('storage/product_images/' . $products->product_front) }}" alt="{{$products->product_front}}" width="100%" id="bigImg">
+                        <tbody class="table-group-divider align-middle">
 
-                        <div class="smallerRow row d-flex justify-content-between mt-5">
-                            <div class="smallerImg card col">
-                                <img src="{{ asset('storage/product_images/' . $products->product_front) }}" alt="{{$products->product_front}}" width="100%" class="smallImg my-3">
-                            </div>
+                            @php
+                                $isThereRecords = 0;
+                            @endphp
 
-                            <div class="smallerImg card col">
-                                <img src="{{ asset('storage/product_images/' . $products->product_left) }}" alt="{{$products->product_left}}" width="100%" class="smallImg my-3">
-                            </div>
+                            <tr>
+                                <td class="cartRow" style="font-weight: bold; width:35%;">Full Name</td>
+                                <td> {{ Auth::user()->name }} </td>
+                            </tr>
 
-                            <div class="smallerImg card col">
-                                <img src="{{ asset('storage/product_images/' . $products->product_right) }}" alt="{{$products->product_right}}" width="100%" class="smallImg my-3">
-                            </div>
+                            <tr>
+                                <td class="cartRow" style="font-weight: bold;  width:35%;">Shipment Address</td>
+                                <td> COMPLETE ADDRESS </td>
+                            </tr>
 
-                            <div class="smallerImg card col">
-                                <img src="{{ asset('storage/product_images/' . $products->product_back) }}" alt="{{$products->product_back}}" width="100%" class="smallImg my-3">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-10 col-md-8 col-lg-6 align-self-center">
-                        <p>Home / ASUS</p>
-
-                        <h1>{{ $products->product_name }}</h1>
-                        <h4>Product Details</h4>
-
-                        @php
-                            $productDescription = $products->product_description;
-
-                            // Split the product description into an array of items
-                            $descriptionItems = explode("\n", $productDescription);
-                        @endphp
-
-                        <ul>
-                            @foreach ($descriptionItems as $item)
-                                <li>{{ $item }}</li>
-                            @endforeach
-                        </ul>
-
-                        <h5 class="productPrice" id="product_price">{{ $products->product_price }}</h5>
-
-                        <div class="container d-flex">
-                            <form action="{{ route('AddToCart', $products->id) }}" method="POST">
-                                @csrf
-
-                                <div class="mb-3 d-flex align-items-center">
-                                    <label for="inputCategory" class="col-form-label">Quantity</label>
-                                    <input type="number" class="quanInputEveryProd mx-3" name="product_cart_qty" id="product_cart_qty" value="1" min="1" max="5">
-                                    @error('product_cart_qty')
-                                        <span class="text-danger">{{$message}}</span>
-                                    @enderror
-                                </div>
-
-                                @php
-                                    $productCartExisting = false;
-                                    $productWishExisting = false;
-                                    $productCartID = null;
-                                    $productWishID = null;
-                                @endphp
-
-                                @foreach ($carts as $cart)
-                                    @if ($products->id == $cart->product_id)
-                                        @php
-                                            $productCartExisting = true;
-                                            $productCartID = $cart->id;
-                                            break;
-                                        @endphp
-                                    @endif
-                                @endforeach
-
-                                @if ($productCartExisting)
-
-                                @else
-                                    @auth
-                                        {{-- If the product is not found in any cart, show the "Add to Cart" button --}}
-                                        <button class="addToCart btn btn-lg px-5" type="submit" id="addToCart">Add to Cart</button>
-                                    @else
-                                        <a class="addToCart btn btn-lg px-5" href="{{ route('login') }}">Add to Cart</a>
-                                    @endauth
-                                @endif
-
-                            </form>
-
-                            @if ($productCartExisting)
-                                <form class="mt-5" action="{{ route('DeleteCartProductView', ['cartID' => $productCartID, 'id' => $products->id]) }}" method="POST" style="margin-left: -143px;">
-                                    @csrf
-                                    <button class="addToCartSelected btn btn-lg px-5 mt-2" type="submit" id="addCartSelected">Remove from Cart</button>
-                                </form>
-                            @endif
-
-                            @foreach ($wishlists as $wishlist)
-                                @if ($products->id == $wishlist->product_id)
-                                    @php
-                                        $productWishExisting = true;
-                                        $productWishID = $wishlist->id;
-                                        break;
-                                    @endphp
-                                @endif
-                            @endforeach
-
-                            @if ($productWishExisting)
-                                <form class="mt-5" action="{{ route('DeleteWishlistProductView', ['wishID' => $productWishID, 'id' => $products->id]) }}" method="POST">
-                                    @csrf
-                                    <button class="addToWishlistSelected btn btn-lg px-5 mx-3" type="submit" id="addWishSelected" style="margin-top: 8px;">Remove from Wishlist</button>
-                                </form>
-                            @else
-                                @auth
-                                    {{-- If the product is not found in any cart, show the "Add to Cart" button --}}
-                                    <form class="mt-5" action="{{ route('AddToWishlist', $products->id) }}" method="POST">
-                                        @csrf
-                                        <button class="addToWishlist btn btn-lg px-5 mx-3" type="submit" id="addToWishlist" style="margin-top: 8px;">Add to Wishlist</button>
-                                    </form>
-                                @else
-                                    <a class="addToWishlist btn btn-lg px-5 mx-3" href="{{ route('login') }}" style="margin-top: 55px;">Add to Wishlist</a>
-                                @endauth
+                            <tr>
+                                <td class="cartRow" style="font-weight: bold;  width:35%;">Contact Number</td>
+                                <td> CONTACT NUMBER </td>
+                            </tr>
 
 
+                            <tr>
+                                <td style="font-weight: bold;  width:35%;">Payment Method</td>
+                                <td>
+                                    <div class="container row d-flex align-items-center">
+                                        <div class="container col-xs-12 col-sm-6 col-md-6 col-lg-6 d-flex">
+                                            <input class="paymentOption mx-3" type="radio" name="Payment Method" value="GCash" onclick="showAmountToPay()" required><img class="imagePayment1 my-3" src="{{ asset('storage/PaymentOptions/Logo GCash.png') }}" alt="GCash" width="55%">
+                                        </div>
 
-                            @endif
+                                        <div class="container col-xs-12 col-sm-6 col-md-6 col-lg-6 d-flex">
+                                            <input class="paymentOption mx-3" type="radio" name="Payment Method" value="PayPal" onclick="showAmountToPay()" required><img class="imagePayment1 my-3"
+                                            src="{{ asset('storage/PaymentOptions/Logo PayPal.png') }}" alt="PayPal" width="50%">
+                                        </div>
+                                    </div>
 
-                        </div>
+                                    <div class="container row d-flex justify-content-center">
+                                        <div class="container col-xs-12 col-sm-6 col-md-6 col-lg-6 d-flex">
+                                            <input class="paymentOption mx-3" type="radio" name="Payment Method" value="BDO" onclick="showAmountToPay()" required><img class="imagePayment2 my-3"
+                                            src="{{ asset('storage/PaymentOptions/Logo BDO.png') }}" alt="BDO" width="40%">
+                                        </div>
+
+                                        <div class="container col-xs-12 col-sm-6 col-md-6 col-lg-6 d-flex">
+                                            <input class="paymentOption mx-3" type="radio" name="Payment Method" value="BPI" onclick="showAmountToPay()" required><img class="imagePayment2 my-3"
+                                            src="{{ asset('storage/PaymentOptions/Logo BPI.png') }}" alt="BPI" width="35%">
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr id="amountToPay" style="visibility:collapse;">
+                                <td style="font-weight: bold; width:35%;">Amount To Pay</td>
+                                <td>
+                                    {{ $amount }}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2">
+                                    <div class="container d-flex justify-content-center m-auto my-2">
+                                        <form method="" action="">
+                                            @csrf
+                                            <input class="btn btn-danger btn-lg mx-5" type="submit" name="Place" value="Place Order" />
+                                        </form>
+
+                                        <form method="" action="">
+                                            @csrf
+                                            <input class="btn btn-danger btn-lg mx-5" type="submit" name="Pay" value="Pay Now" />
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
 
 
-                    </div>
                 </div>
             </div>
         </div>
@@ -281,38 +217,6 @@
         </footer>
 
         <script type="text/javascript">
-            var bigImg = document.getElementById("bigImg");
-            var smallImg = document.getElementsByClassName("smallImg");
-
-            /*   Changing Pictures on Every Product   */
-            smallImg[0].onclick = function () {
-                bigImg.src = smallImg[0].src;
-            }
-
-            smallImg[1].onclick = function () {
-                bigImg.src = smallImg[1].src;
-            }
-
-            smallImg[2].onclick = function () {
-                bigImg.src = smallImg[2].src;
-            }
-
-            smallImg[3].onclick = function () {
-                bigImg.src = smallImg[3].src;
-            }
-
-            function formatAmount() {
-                let databasePrice = document.getElementById("product_price").innerText;
-
-                // Format the number with commas
-                let formattedAmount = parseFloat(databasePrice).toLocaleString('en-US', {
-                    // style: 'currency',
-                    currency: 'PHP',
-                    minimumFractionDigits: 2
-                });
-
-                document.getElementById('product_price').innerText = '₱ ' + formattedAmount;
-            }
 
             setTimeout(function() {
                 var alertMessage = document.getElementById("alertMessage");
@@ -323,6 +227,10 @@
                     alertMessage.remove();
                 }, 300); // Adjust the time based on your CSS transition duration
             }, 3000);
+
+            function showAmountToPay() {
+                document.getElementById("amountToPay").style.visibility = "visible";
+            }
 
         </script>
 

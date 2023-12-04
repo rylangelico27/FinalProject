@@ -43,8 +43,22 @@
                             @if (Route::has('login'))
                                 @auth
 
+                                    {{--
                                     <li class="navText nav-item">
                                         <a href="{{ url('/dashboard') }}" class="dropdown-item text-light font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
+                                    </li>
+                                    --}}
+
+                                    <li class="navText nav-item">
+                                        <a href="{{ route('OrderHistory') }}" class="navbarIcon text-light mx-2"><i class="bi bi-clock-history"></i></a>
+                                    </li>
+
+                                    <li class="navText nav-item">
+                                        <a href="{{ route('Wishlist') }}" class="navbarIcon text-light mx-2"><i class="bi bi-bag-heart-fill"></i></a>
+                                    </li>
+
+                                    <li class="navText nav-item">
+                                        <a href="{{ route('Cart') }}" class="navbarIcon text-light mx-2"><i class="bi bi-cart2"></i></a>
                                     </li>
 
                                 @else
@@ -157,16 +171,14 @@
 
                                             <td> {{ $formatted_number }} </td>
 
+                                            <form method="POST" action="{{ route('UpdateCart', $cart->id) }}">
+                                                @csrf
                                             <td>
-                                                <input class="quanInput mx-3" type="number" id="oldQuantity" name="prodQuantity" value="{{ $cart->product_cart_qty }}" />
+                                                <input class="quanInput mx-3" type="number" id="product_cart_qty" name="product_cart_qty" value="{{ $cart->product_cart_qty }}" min="1" max="10" onchange="enableBtn()" />
                                             </td>
 
                                             <td>
                                                 <div class="d-flex justify-content-center">
-                                                    <form method="POST" >
-                                                        @csrf
-                                                        <input class="quanInput mx-3" type="number" id="newQuantity" name="prodQuantity" value="@userCart.quantity" min="1" hidden
-                                                        onchange="enableBtn()">
                                                         <button class="removeToWish btn btn-danger mx-2" id="updateBtn" type="submit" disabled>Update</button>
                                                     </form>
 
@@ -245,7 +257,8 @@
                         </div>
 
                         <div class="d-flex justify-content-end mb-5">
-                            <form method="POST">
+                            <form method="GET" action="{{ route('ProceedToCheckout', $formatted_number) }}">
+                                @csrf
                                 <button class="checkOut btn btn-danger" type="submit">Proceed to Checkout&#8594;</button>
                             </form>
                         </div>
@@ -276,6 +289,10 @@
         </footer>
 
         <script type="text/javascript">
+
+            function enableBtn() {
+                document.getElementById("updateBtn").disabled = false;
+            }
 
             setTimeout(function() {
                 var alertMessage = document.getElementById("alertMessage");

@@ -29,17 +29,13 @@
                         <div class="card">
                             <div class="card-body table-responsive">
 
-                                <div class="container mt-2 d-flex justify-content-end">
-                                    <a href="{{ route('AddForm') }}" class="btn btn-primary btn-md">+ New Product</a>
-                                </div>
-
                                 <div class="container mt-4 text-center">
                                     <table class="table table-hover fs-5">
 
                                         <thead class="table-info align-middle">
                                             <tr class="table-primary">
                                                 <th class="text-center" colspan="2">Product</th> <!-- colspan="2" -->
-                                                <th class="text-center" >Created At</th>
+                                                <th class="text-center" >Deleted At</th>
                                                 <th class="text-center" colspan="">Action</th>
                                             </tr>
                                         </thead>
@@ -51,33 +47,37 @@
                                             @endphp
 
                                             {{-- BLADE CODE --}}
-                                            @foreach ($products as $product)
+                                            @foreach ($archives as $product)
                                                 <tr>
                                                     {{-- <th scope="row">{{$product->id}}</th> --}}
                                                     <td>
                                                         <img src="{{ asset('storage/product_images/' . $product->product_front) }}" alt="$product->product_front" style="height: 130px;">
                                                     </td>
                                                     <td>{{$product->product_name}}</td>
-                                                    <td>{{$product->created_at->diffForHumans()}}</td>
+                                                    <td>{{$product->deleted_at->diffForHumans()}}</td>
 
                                                     <td>
-                                                        <a href="{{ route('ViewProduct', $product->id) }}" class="btn btn-warning btn-md mx-1">View</a>
-                                                        <a href="{{ route('EditProduct', $product->id) }}" class="btn btn-primary btn-md mx-1">Update</a>
-                                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal{{$product->id}}">Archive</button>
+                                                        <div class="d-flex justify-content-center">
+                                                            <form action="{{ route('RestoreProduct', $product->id) }}" method="POST">
+                                                                @csrf
+                                                                <button type="submit" class="btn btn-info btn-md mx-1">Restore</button>
+                                                            </form>
+                                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal{{$product->id}}">Delete</button>
+                                                        </div>
 
                                                         <!-- Modal -->
                                                         <div class="modal fade" id="deleteConfirmationModal{{$product->id}}" tabindex="-1" aria-labelledby="exampleModalLabel{{$product->id}}" aria-hidden="true">
                                                             <div class="modal-dialog">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
-                                                                        <h1 class="modal-title fs-5" id="exampleModalLabel{{$product->id}}">Confirm Archive?</h1>
+                                                                        <h1 class="modal-title fs-5" id="exampleModalLabel{{$product->id}}">Confirm Delete?</h1>
                                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                     </div>
                                                                     <div class="modal-body">
-                                                                        Are you sure you want to archive this product?
+                                                                        Are you sure you want to permanently delete this product?
                                                                     </div>
                                                                     <div class="modal-footer">
-                                                                        <form action="{{ route('DeleteProduct', $product->id) }}" method="POST">
+                                                                        <form action="{{ route('DeleteProductPermanently', $product->id) }}" method="POST">
                                                                             @csrf
                                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                                                                             <button type="submit" class="btn btn-danger">Delete</button>
@@ -95,14 +95,14 @@
                                             @endforeach
                                         </tbody>
                                     </table>
-                                    {{ $products->links() }}
+                                    {{ $archives->links() }}
 
                                     @if ($isThereRecords == 0)
                                         <div class="d-flex justify-content-center">
                                             <table>
                                                 <tbody>
                                                     <tr>
-                                                        <td>No Registered Products</td>
+                                                        <td>No Archived Products</td>
                                                     </tr>
                                                 </tbody>
                                             </table>

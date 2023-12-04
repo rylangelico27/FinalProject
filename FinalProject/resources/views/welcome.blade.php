@@ -31,7 +31,7 @@
         <header>
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark fixed-top">
                 <div class="container">
-                    <a class="navbar-brand text-light" href="">ETech</a>
+                    <a class="navbar-brand text-light" href="{{ route('welcome') }}">ETech</a>
 
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -43,7 +43,7 @@
                             @if (Route::has('login'))
                                 @auth
 
-                                    @if (Auth::user()->name == "Admin")
+                                    @if (Auth::user()->role == "admin")
                                         <li class="navText nav-item">
                                             <a href="{{ url('/dashboard') }}" class="dropdown-item text-light font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
                                         </li>
@@ -78,6 +78,10 @@
                                     @endif
 
                                 @else
+
+                                    <li class="navbarIcon nav-item">
+                                        <a href="{{ route('login') }}" class="dropdown-item text-light mx-2"><i class="bi bi-clock-history"></i></a>
+                                    </li>
 
                                     <li class="navbarIcon nav-item">
                                         <a href="{{ route('login') }}" class="dropdown-item text-light mx-2"><i class="bi bi-bag-heart-fill"></i></a>

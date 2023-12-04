@@ -25,6 +25,10 @@
                         <x-nav-link href="{{ route('AllProducts') }}" :active="request()->routeIs('AllProducts')">
                             {{ __('Content Management System') }}
                         </x-nav-link>
+
+                        <x-nav-link href="{{ route('ArchivedProducts') }}" :active="request()->routeIs('ArchivedProducts')">
+                            {{ __('Archive') }}
+                        </x-nav-link>
                     @endif
 
 
@@ -33,6 +37,7 @@
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
 
+                <a href="{{ route('OrderHistory') }}" class="navbarIcon text-light mx-2"><i class="bi bi-clock-history"></i></a>
                 <a href="{{ route('Wishlist') }}" class="navbarIcon text-light mx-2"><i class="bi bi-bag-heart-fill"></i></a>
                 <a href="{{ route('Cart') }}" class="navbarIcon text-light mx-2"><i class="bi bi-cart2"></i></a>
 

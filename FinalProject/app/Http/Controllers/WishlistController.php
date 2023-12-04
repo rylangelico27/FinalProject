@@ -41,14 +41,65 @@ class WishlistController extends Controller
             return Redirect()->route('ViewIndividualProduct', $id)->with('info', 'Product Already in Wishlist');
     }
 
+    public function AddToWishlistWelcomeView(Request $request, int $id)
+    {
+        $userId = Auth::user()->id;
+
+        // Check if the entry already exists in the wishlist
+        $existingWishlistEntry = Wishlist::where('product_id', $id)
+                                        ->where('user_id', $userId)
+                                        ->first();
+
+        if (!$existingWishlistEntry) {
+            Wishlist::create([
+                'product_id' => $id,
+                'user_id' => Auth::user()->id,
+                'created_at' => Carbon::now()
+            ]);
+
+            return Redirect()->back()->with('success','Product Added to Wishlist');
+        }
+
+        else
+            return Redirect()->back()->with('info', 'Product Already in Wishlist');
+    }
+
     // UPDATE
 
 
     // DELETE
-    public function DeleteWishlist(Request $request, $id)
+    public function DeleteWishlist($id)
     {
-        $deleted = Wishlist::destroy($id);
+        $wishlistItem = Wishlist::find($id);
+        $wishlistItem->forceDelete();
         return Redirect()->route('Wishlist')->with('success','Product Removed from Wishlist');
     }
+
+    public function DeleteWishlistProductView($wishID, $id)
+    {
+        $wishlistItem = Wishlist::find($wishID);
+
+        if (!$wishlistItem) {
+            return redirect()->route('ViewIndividualProduct', $wishID)->with('error', 'Wishlist item not found');
+        }
+
+        $wishlistItem->forceDelete();
+
+        return redirect()->route('ViewIndividualProduct', $id)->with('success', 'Product Removed from Wishlist');
+    }
+
+    public function DeleteWishlistWelcomeView($wishID, $id)
+    {
+        $wishlistItem = Wishlist::find($wishID);
+
+        if (!$wishlistItem) {
+            return redirect()->back()->with('error', 'Wishlist item not found');
+        }
+
+        $wishlistItem->forceDelete();
+
+        return redirect()->back()->with('success', 'Product Removed from Wishlist');
+    }
+
 
 }

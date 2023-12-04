@@ -31,11 +31,7 @@
         <header>
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark fixed-top">
                 <div class="container">
-                    @auth
-                        <a class="navbar-brand text-light" href="{{ route('dashboard') }}">ETech</a>
-                    @else
-                        <a class="navbar-brand text-light" href="{{ route('welcome') }}">ETech</a>
-                    @endauth
+                    <a class="navbar-brand text-light" href="{{ route('dashboard') }}">ETech</a>
 
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -106,168 +102,123 @@
             </nav>
         </header>
 
-        {{-- PRODUCT VIEW --}}
-        <div class="d-flex align-items-center" style="height: 885px;">
-            <div class="prodContainer container align-items-center">
+        {{-- CART VIEW --}}
 
-                <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
-                    <symbol id="check-circle-fill" viewBox="0 0 16 16">
-                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                    </symbol>
-                    <symbol id="info-fill" viewBox="0 0 16 16">
-                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-                    </symbol>
-                    <symbol id="exclamation-triangle-fill" viewBox="0 0 16 16">
-                        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-                    </symbol>
-                </svg>
+        <div class="authorContainer m-auto">
+            <h2 class="prodHead" style="margin-top:100px;">Order History</h2>
+        </div>
 
-                @if(session('success'))
-                    <div id="alertMessage" class="alert alert-success d-flex align-items-center fade show" role="alert" style="height: 50px;">
-                        <svg class="bi flex-shrink-0 me-2 w-5" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-                        <div class="container">
-                            {{session('success')}}
-                        </div>
+        <div class="cartCont container">
+
+            <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+                <symbol id="check-circle-fill" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                </symbol>
+                <symbol id="info-fill" viewBox="0 0 16 16">
+                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                </symbol>
+                <symbol id="exclamation-triangle-fill" viewBox="0 0 16 16">
+                    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                </symbol>
+            </svg>
+
+            @if(session('success'))
+                <div id="alertMessage" class="alert alert-success d-flex align-items-center fade show m-auto mb-1" role="alert" style="height: 50px;">
+                    <svg class="bi flex-shrink-0 me-2 w-5" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                    <div class="container">
+                        {{session('success')}}
                     </div>
-                @endif
+                </div>
+            @endif
 
-                @if(session('info'))
-                    <div id="alertMessage" class="alert alert-info d-flex align-items-center fade show" role="alert" style="height: 50px;">
-                        <svg class="bi flex-shrink-0 me-2 w-5" role="img" aria-label="Success:"><use xlink:href="#info-fill"/></svg>
-                        <div class="container">
-                            {{session('info')}}
-                        </div>
-                    </div>
-                @endif
+            <div class="card" style="margin-bottom: 10%;">
+                <div class="card-body table-responsive">
 
-                <div class="row d-flex justify-content-center align-items-center">
+                    <table class="table table-hover fs-5">
+                        <thead class="align-middle">
+                            <tr class="table-danger">
+                                <th class="tableHeadingProd">Order Reference No.</th>
+                                <th class="tableHeading">Date</th>
+                                <th class="tableHeading">Amount to Pay</th>
+                                <th class="tableHeading">Payment Method</th>
+                                <th class="tableHeading" colspan="2">Status</th>
+                            </tr>
+                        </thead>
 
-                    <div class="imgColumn card col-sm-10 col-md-8 col-lg-6 align-items-center">
-                        <img class="imgProd" src="{{ asset('storage/product_images/' . $products->product_front) }}" alt="{{$products->product_front}}" width="100%" id="bigImg">
+                        <tbody class="table-group-divider align-middle">
 
-                        <div class="smallerRow row d-flex justify-content-between mt-5">
-                            <div class="smallerImg card col">
-                                <img src="{{ asset('storage/product_images/' . $products->product_front) }}" alt="{{$products->product_front}}" width="100%" class="smallImg my-3">
-                            </div>
+                            @php
+                                $isThereRecords = 0;
+                            @endphp
 
-                            <div class="smallerImg card col">
-                                <img src="{{ asset('storage/product_images/' . $products->product_left) }}" alt="{{$products->product_left}}" width="100%" class="smallImg my-3">
-                            </div>
+{{--
+                            @foreach ($carts as $cart)
+                                @foreach ($products as $product)
+                                    @if ($product->id == $cart->product_id)
 
-                            <div class="smallerImg card col">
-                                <img src="{{ asset('storage/product_images/' . $products->product_right) }}" alt="{{$products->product_right}}" width="100%" class="smallImg my-3">
-                            </div>
+                                        <tr class="cartRow">
+                                            <td class="">
+                                                <img src="{{ asset('storage/product_images/' . $product->product_front) }}" alt="{{$product->product_front}}" style="width: 200px;">
+                                            </td>
+                                            <td style="font-size:large; font-weight: bold;"> {{ $product->product_name }} </td>
 
-                            <div class="smallerImg card col">
-                                <img src="{{ asset('storage/product_images/' . $products->product_back) }}" alt="{{$products->product_back}}" width="100%" class="smallImg my-3">
-                            </div>
-                        </div>
-                    </div>
+                                            @php
+                                                // Format the number with currency symbol and commas
+                                                $formatted_number = '₱ ' . number_format($product->product_price, 2);
+                                            @endphp
 
-                    <div class="col-sm-10 col-md-8 col-lg-6 align-self-center">
-                        <p>Home / ASUS</p>
+                                            <td> {{ $formatted_number }} </td>
 
-                        <h1>{{ $products->product_name }}</h1>
-                        <h4>Product Details</h4>
+                                            <td>
+                                                <input class="quanInput mx-3" type="number" id="oldQuantity" name="prodQuantity" value="{{ $cart->product_cart_qty }}" />
+                                            </td>
 
-                        @php
-                            $productDescription = $products->product_description;
+                                            <td>
+                                                <div class="d-flex justify-content-center">
+                                                    <form method="POST" >
+                                                        @csrf
+                                                        <input class="quanInput mx-3" type="number" id="newQuantity" name="prodQuantity" value="@userCart.quantity" min="1" hidden
+                                                        onchange="enableBtn()">
+                                                        <button class="removeToWish btn btn-danger mx-2" id="updateBtn" type="submit" disabled>Update</button>
+                                                    </form>
 
-                            // Split the product description into an array of items
-                            $descriptionItems = explode("\n", $productDescription);
-                        @endphp
+                                                    <form method="POST" action="{{ route('DeleteCart', $cart->id) }}">
+                                                        @csrf
+                                                        <button class="removeToWish btn btn-danger mx-2" type="submit">Remove</button>
+                                                    </form>
+                                                </div>
+                                            </td>
 
-                        <ul>
-                            @foreach ($descriptionItems as $item)
-                                <li>{{ $item }}</li>
-                            @endforeach
-                        </ul>
+                                            <td id="product_price" style="text-align:center; font-weight: bold; font-size: large;"> {{ $formatted_number }} </td>
 
-                        <h5 class="productPrice" id="product_price">{{ $products->product_price }}</h5>
+                                            @php
+                                                $isThereRecords++;
+                                            @endphp
+                                        </tr>
 
-                        <div class="container d-flex">
-                            <form action="{{ route('AddToCart', $products->id) }}" method="POST">
-                                @csrf
-
-                                <div class="mb-3 d-flex align-items-center">
-                                    <label for="inputCategory" class="col-form-label">Quantity</label>
-                                    <input type="number" class="quanInputEveryProd mx-3" name="product_cart_qty" id="product_cart_qty" value="1" min="1" max="5">
-                                    @error('product_cart_qty')
-                                        <span class="text-danger">{{$message}}</span>
-                                    @enderror
-                                </div>
-
-                                @php
-                                    $productCartExisting = false;
-                                    $productWishExisting = false;
-                                    $productCartID = null;
-                                    $productWishID = null;
-                                @endphp
-
-                                @foreach ($carts as $cart)
-                                    @if ($products->id == $cart->product_id)
-                                        @php
-                                            $productCartExisting = true;
-                                            $productCartID = $cart->id;
-                                            break;
-                                        @endphp
                                     @endif
                                 @endforeach
-
-                                @if ($productCartExisting)
-
-                                @else
-                                    @auth
-                                        {{-- If the product is not found in any cart, show the "Add to Cart" button --}}
-                                        <button class="addToCart btn btn-lg px-5" type="submit" id="addToCart">Add to Cart</button>
-                                    @else
-                                        <a class="addToCart btn btn-lg px-5" href="{{ route('login') }}">Add to Cart</a>
-                                    @endauth
-                                @endif
-
-                            </form>
-
-                            @if ($productCartExisting)
-                                <form class="mt-5" action="{{ route('DeleteCartProductView', ['cartID' => $productCartID, 'id' => $products->id]) }}" method="POST" style="margin-left: -143px;">
-                                    @csrf
-                                    <button class="addToCartSelected btn btn-lg px-5 mt-2" type="submit" id="addCartSelected">Remove from Cart</button>
-                                </form>
-                            @endif
-
-                            @foreach ($wishlists as $wishlist)
-                                @if ($products->id == $wishlist->product_id)
-                                    @php
-                                        $productWishExisting = true;
-                                        $productWishID = $wishlist->id;
-                                        break;
-                                    @endphp
-                                @endif
                             @endforeach
+ --}}
 
-                            @if ($productWishExisting)
-                                <form class="mt-5" action="{{ route('DeleteWishlistProductView', ['wishID' => $productWishID, 'id' => $products->id]) }}" method="POST">
-                                    @csrf
-                                    <button class="addToWishlistSelected btn btn-lg px-5 mx-3" type="submit" id="addWishSelected" style="margin-top: 8px;">Remove from Wishlist</button>
-                                </form>
-                            @else
-                                @auth
-                                    {{-- If the product is not found in any cart, show the "Add to Cart" button --}}
-                                    <form class="mt-5" action="{{ route('AddToWishlist', $products->id) }}" method="POST">
-                                        @csrf
-                                        <button class="addToWishlist btn btn-lg px-5 mx-3" type="submit" id="addToWishlist" style="margin-top: 8px;">Add to Wishlist</button>
-                                    </form>
-                                @else
-                                    <a class="addToWishlist btn btn-lg px-5 mx-3" href="{{ route('login') }}" style="margin-top: 55px;">Add to Wishlist</a>
-                                @endauth
+                        </tbody>
+                    </table>
 
+                    @if ($isThereRecords > 0)
 
+                    @else
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="text-center">No Records found in your Order History.</td>
+                                </tr>
+                            </tbody>
+                        </table>
 
-                            @endif
-
-                        </div>
+                    @endif
 
 
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -281,38 +232,6 @@
         </footer>
 
         <script type="text/javascript">
-            var bigImg = document.getElementById("bigImg");
-            var smallImg = document.getElementsByClassName("smallImg");
-
-            /*   Changing Pictures on Every Product   */
-            smallImg[0].onclick = function () {
-                bigImg.src = smallImg[0].src;
-            }
-
-            smallImg[1].onclick = function () {
-                bigImg.src = smallImg[1].src;
-            }
-
-            smallImg[2].onclick = function () {
-                bigImg.src = smallImg[2].src;
-            }
-
-            smallImg[3].onclick = function () {
-                bigImg.src = smallImg[3].src;
-            }
-
-            function formatAmount() {
-                let databasePrice = document.getElementById("product_price").innerText;
-
-                // Format the number with commas
-                let formattedAmount = parseFloat(databasePrice).toLocaleString('en-US', {
-                    // style: 'currency',
-                    currency: 'PHP',
-                    minimumFractionDigits: 2
-                });
-
-                document.getElementById('product_price').innerText = '₱ ' + formattedAmount;
-            }
 
             setTimeout(function() {
                 var alertMessage = document.getElementById("alertMessage");

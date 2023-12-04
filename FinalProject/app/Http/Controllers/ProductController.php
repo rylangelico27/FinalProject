@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 //
+
+use App\Models\Cart;
 use App\Models\Products;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
@@ -15,7 +18,7 @@ class ProductController extends Controller
     //
 
     public function index() {
-        $products = Products::latest()->paginate('5');
+        $products = Products::latest()->paginate('10');
         return view('admin.product.contentmanagementsystem', compact('products'));
     }
 
@@ -189,7 +192,7 @@ class ProductController extends Controller
     public function DeleteProduct(Request $request, $id)
     {
         $deleted = Products::destroy($id);
-        return Redirect()->back()->with('success','Product Deleted Successful');
+        return Redirect()->back()->with('success','Product Archived Successful');
     }
 
     public function LowHigh() {
@@ -215,9 +218,49 @@ class ProductController extends Controller
 
     public function ViewIndividualProduct($id) {
         $products = Products::find($id);
-        return view('customer.productView', compact('products'));
+        $carts = Cart::all();
+        $wishlists = Wishlist::all();
+        return view('customer.productView', compact('products', 'carts', 'wishlists'));
     }
 
+    public function ArchivedProducts() {
+        $archives = Products::onlyTrashed()->latest()->paginate('10');
+        return view('admin.product.archive', compact('archives'));
+    }
+
+    public function RestoreProduct($id)
+    {
+        $restore = Products::withTrashed()->find($id)->restore();
+        return Redirect()->back()->with('success','Product Restored Successful');
+    }
+
+    public function DeleteProductPermanently($id)
+    {
+        // Find the product to delete
+        $product = Products::withTrashed()->find($id);
+
+        // Check if the product exists
+        if (!$product) {
+            return redirect()->back()->with('error', 'Product not found');
+        }
+
+        // Delete the associated files
+        $this->deleteFile($product);
+
+        // Permanently delete the product
+        $product->forceDelete();
+
+        return redirect()->back()->with('success', 'Product deleted successfully');
+    }
+
+    public function deleteFile($product)
+    {
+        // Delete the existing files
+        Storage::disk('public')->delete('product_images/' . $product->product_front);
+        Storage::disk('public')->delete('product_images/' . $product->product_right);
+        Storage::disk('public')->delete('product_images/' . $product->product_left);
+        Storage::disk('public')->delete('product_images/' . $product->product_back);
+    }
 
 
 }

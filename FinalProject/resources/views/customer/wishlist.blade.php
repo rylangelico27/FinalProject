@@ -43,8 +43,22 @@
                             @if (Route::has('login'))
                                 @auth
 
+                                    {{--
                                     <li class="navText nav-item">
                                         <a href="{{ url('/dashboard') }}" class="dropdown-item text-light font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
+                                    </li>
+                                    --}}
+
+                                    <li class="navText nav-item">
+                                        <a href="{{ route('OrderHistory') }}" class="navbarIcon text-light mx-2"><i class="bi bi-clock-history"></i></a>
+                                    </li>
+
+                                    <li class="navText nav-item">
+                                        <a href="{{ route('Wishlist') }}" class="navbarIcon text-light mx-2"><i class="bi bi-bag-heart-fill"></i></a>
+                                    </li>
+
+                                    <li class="navText nav-item">
+                                        <a href="{{ route('Cart') }}" class="navbarIcon text-light mx-2"><i class="bi bi-cart2"></i></a>
                                     </li>
 
                                 @else
