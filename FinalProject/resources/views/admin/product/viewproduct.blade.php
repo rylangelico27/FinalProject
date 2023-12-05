@@ -36,25 +36,46 @@
                                         <input type="text" class="form-control" name="product_price_input" id="product_price_input" value="{{ $products->product_price }}" readonly>
                                     </div>
 
-                                    <label for="inputCategory" class="col-form-label">Product Image (Front)</label>
-                                        <div class="d-flex align-items-center mb-3">
-                                            <input type="text" class="form-control text-center fst-italic" id="product_front_display" aria-label="Username" aria-describedby="addon-wrapping"  value="{{ $products->product_front }}" readonly style="width: 50%;"/>
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="inputCategory" class="col-form-label">Product Image (Front)</label>
+                                            <div class="d-flex align-items-center mb-3">
+                                                <input type="text" class="form-control text-center fst-italic" id="product_front_display" aria-label="Username" aria-describedby="addon-wrapping"  value="{{ $products->product_front }}" readonly/>
+                                            </div>
+                                            <div class="d-flex justify-content-center">
+                                                <img class="mb-5 w-50" src="{{ asset('storage/product_images/' . $products->product_front) }}" alt="{{$products->product_front}}">
+                                            </div>
+
+                                            <label for="inputCategory" class="col-form-label">Product Image (Right)</label>
+                                            <div class="d-flex align-items-center mb-3">
+                                                <input type="text" class="form-control text-center fst-italic" id="product_right_display" aria-label="Username" aria-describedby="addon-wrapping"  value="{{ $products->product_right }}" readonly/>
+                                            </div>
+                                            <div class="d-flex justify-content-center">
+                                                <img class="mb-5 w-50" src="{{ asset('storage/product_images/' . $products->product_right) }}" alt="{{$products->product_right}}">
+                                            </div>
                                         </div>
 
-                                    <label for="inputCategory" class="col-form-label">Product Image (Right)</label>
-                                        <div class="d-flex align-items-center mb-3">
-                                            <input type="text" class="form-control text-center fst-italic" id="product_right_display" aria-label="Username" aria-describedby="addon-wrapping"  value="{{ $products->product_right }}" readonly style="width: 50%;"/>
-                                        </div>
+                                        <div class="col">
+                                            <label for="inputCategory" class="col-form-label">Product Image (Left)</label>
+                                            <div class="d-flex align-items-center mb-3">
+                                                <input type="text" class="form-control text-center fst-italic" id="product_left_display" aria-label="Username" aria-describedby="addon-wrapping"  value="{{ $products->product_left }}" readonly/>
+                                            </div>
+                                            <div class="d-flex justify-content-center">
+                                                <img class="mb-5 w-50" src="{{ asset('storage/product_images/' . $products->product_left) }}" alt="{{$products->product_left}}">
+                                            </div>
 
-                                    <label for="inputCategory" class="col-form-label">Product Image (Left)</label>
-                                        <div class="d-flex align-items-center mb-3">
-                                            <input type="text" class="form-control text-center fst-italic" id="product_left_display" aria-label="Username" aria-describedby="addon-wrapping"  value="{{ $products->product_left }}" readonly style="width: 50%;"/>
+                                            <label for="inputCategory" class="col-form-label">Product Image (Back)</label>
+                                            <div class="d-flex align-items-center mb-3">
+                                                <input type="text" class="form-control text-center fst-italic" id="product_back_display" aria-label="Username" aria-describedby="addon-wrapping"  value="{{ $products->product_back }}" readonly/>
+                                            </div>
+                                            <div class="d-flex justify-content-center">
+                                                <img class="mb-5 w-50" src="{{ asset('storage/product_images/' . $products->product_back) }}" alt="{{$products->product_back}}">
+                                            </div>
                                         </div>
+                                    </div>
 
-                                    <label for="inputCategory" class="col-form-label">Product Image (Back)</label>
-                                        <div class="d-flex align-items-center mb-3">
-                                            <input type="text" class="form-control text-center fst-italic" id="product_back_display" aria-label="Username" aria-describedby="addon-wrapping"  value="{{ $products->product_back }}" readonly style="width: 50%;"/>
-                                        </div>
+
+
 
                                     <div class="col-auto mt-4">
                                         <a href="{{ route('AllProducts') }}" class="btn btn-secondary btn-md">Back</a>

@@ -60,7 +60,7 @@ class CartController extends Controller
                 'created_at' => Carbon::now()
             ]);
 
-            return Redirect()->back()->with('success','Product Added to Cart');
+            return Redirect()->route('dashboard')->with('success','Product Added to Cart');
         }
 
         else
@@ -112,7 +112,7 @@ class CartController extends Controller
 
         $cartItem->forceDelete();
 
-        return redirect()->back()->with('success', 'Product Removed from Cart');
+        return redirect()->route('dashboard')->with('success', 'Product Removed from Cart');
     }
 
 }

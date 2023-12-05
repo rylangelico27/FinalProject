@@ -86,11 +86,11 @@ Route::middleware([
 
 
 // FILTERING
-    Route::get('/low-to-high', [ProductController::class, 'LowHigh'])->name('LowHigh');
-    Route::get('/high-to-low', [ProductController::class, 'HighLow'])->name('HighLow');
+    Route::get('/dashboard/low-to-high', [ProductController::class, 'LowHigh'])->name('LowHigh');
+    Route::get('/dashboard/high-to-low', [ProductController::class, 'HighLow'])->name('HighLow');
     // DEFAULT      Route::get('/new-to-old', [ProductController::class, 'NewOld'])->name('NewOld');
-    Route::get('/new-to-old', [ProductController::class, 'NewOld'])->name('NewOld');
-    Route::get('/old-to-new', [ProductController::class, 'OldNew'])->name('OldNew');
+    Route::get('/dashboard/new-to-old', [ProductController::class, 'NewOld'])->name('NewOld');
+    Route::get('/dashboard/old-to-new', [ProductController::class, 'OldNew'])->name('OldNew');
 
 // Product View
     Route::get('/view-product/{id}', [ProductController::class, 'ViewIndividualProduct'])->name('ViewIndividualProduct');
@@ -153,26 +153,4 @@ Route::middleware([
 
 // Order Details
     Route::get('/dashboard/order-details/{id}', [OrderController::class, 'OrderDetails'])->name('OrderDetails');
-
-
-
-Route::get('/products', function () {
-    return view('products');
-});
-
-Route::get('/productView', function () {
-    return view('productView');
-});
-
-Route::get('/cart', function () {
-    return view('cart');
-});
-
-Route::get('/wishlist', function () {
-    return view('wishlist');
-});
-
-Route::get('/index', function () {
-    return view('index');
-});
 

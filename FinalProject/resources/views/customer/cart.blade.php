@@ -193,12 +193,12 @@
                                             <form method="POST" action="{{ route('UpdateCart', $cart->id) }}">
                                                 @csrf
                                             <td>
-                                                <input class="quanInput mx-3" type="number" id="product_cart_qty" name="product_cart_qty" value="{{ $cart->product_cart_qty }}" min="1" max="5" onchange="enableBtn()" />
+                                                <input class="quanInput mx-3" type="number" id="product_cart_qty" name="product_cart_qty" value="{{ $cart->product_cart_qty }}" min="1" max="5" onchange="enableBtn( {{ $cart->id }} )" />
                                             </td>
 
                                             <td>
                                                 <div class="d-flex justify-content-center">
-                                                        <button class="removeToWish btn btn-danger mx-2" id="updateBtn" type="submit" disabled>Update</button>
+                                                        <button class="removeToWish btn btn-danger mx-2" id="updateBtn-{{ $cart->id }}" type="submit" disabled>Update</button>
                                                     </form>
 
                                                     <form method="POST" action="{{ route('DeleteCart', $cart->id) }}">
@@ -309,8 +309,8 @@
 
         <script type="text/javascript">
 
-            function enableBtn() {
-                document.getElementById("updateBtn").disabled = false;
+            function enableBtn(cartId) {
+                document.getElementById(`updateBtn-${cartId}`).disabled = false;
             }
 
             setTimeout(function() {

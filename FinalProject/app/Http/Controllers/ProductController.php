@@ -197,23 +197,54 @@ class ProductController extends Controller
 
     public function LowHigh() {
         $products = Products::orderBy('product_price', 'asc')->get(); // 'asc' for ascending order
-        // $products = Products::orderBy('product_price', 'asc')->paginate('10'); // 'asc' for ascending order
-        return view('welcome', compact('products'));
+
+        if (auth()->check()) {
+            $carts = Cart::all();
+            $wishlists = Wishlist::all();
+            return view('dashboard', compact('products', 'carts', 'wishlists'));
+        } else {
+            // $products = Products::orderBy('product_price', 'asc')->paginate('10'); // 'asc' for ascending order
+            return view('welcome', compact('products'));
+        }
     }
 
     public function HighLow() {
         $products = Products::orderBy('product_price', 'desc')->get(); // 'desc' for descending order
-        return view('welcome', compact('products'));
+
+        if (auth()->check()) {
+            $carts = Cart::all();
+            $wishlists = Wishlist::all();
+            return view('dashboard', compact('products', 'carts', 'wishlists'));
+        } else {
+            // $products = Products::orderBy('product_price', 'asc')->paginate('10'); // 'asc' for ascending order
+            return view('welcome', compact('products'));
+        }
     }
 
     public function NewOld() {
         $products = Products::orderBy('created_at', 'desc')->get(); // 'desc' for newest order
-        return view('welcome', compact('products'));
+
+        if (auth()->check()) {
+            $carts = Cart::all();
+            $wishlists = Wishlist::all();
+            return view('dashboard', compact('products', 'carts', 'wishlists'));
+        } else {
+            // $products = Products::orderBy('product_price', 'asc')->paginate('10'); // 'asc' for ascending order
+            return view('welcome', compact('products'));
+        }
     }
 
     public function OldNew() {
         $products = Products::orderBy('created_at', 'asc')->get(); // 'asc' for oldest order
-        return view('welcome', compact('products'));
+
+        if (auth()->check()) {
+            $carts = Cart::all();
+            $wishlists = Wishlist::all();
+            return view('dashboard', compact('products', 'carts', 'wishlists'));
+        } else {
+            // $products = Products::orderBy('product_price', 'asc')->paginate('10'); // 'asc' for ascending order
+            return view('welcome', compact('products'));
+        }
     }
 
     public function ViewIndividualProduct($id) {

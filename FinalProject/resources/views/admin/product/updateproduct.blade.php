@@ -53,19 +53,20 @@
                                         <input type="text" class="form-control" name="product_price" id="product_price" value="{{ $products->product_price }}" hidden>
                                         <input type="text" class="form-control" name="product_price_input" id="product_price_input" value="{{ $products->product_price }}" onchange="formatAmountUpdate(this)">
 
-
                                         @error('product_price')
                                             <span class="text-danger">{{$message}}</span>
                                         @enderror
                                     </div>
 
                                     <label for="inputCategory" class="col-form-label">Product Image (Front)</label>
-                                        <div class="d-flex align-items-center mb-3">
+                                        <div class="d-flex align-items-start mb-3">
                                             <input type="file" class="form-control" name="product_front" id="product_front" onchange="enableUpdateFront(this)"style="width: 108px;">
 
                                             <input type="text" class="form-control text-center fst-italic" name="product_front_display" id="product_front_display" aria-label="Username" aria-describedby="addon-wrapping" value="{{ $products->product_front }}" readonly style="width: 50%;"/>
 
-                                            {{-- <img src="{{ asset('storage/product_images/' . $products->product_front) }}"> --}}
+                                            <div class="d-flex align-items-center justify-content-center mx-auto">
+                                                <img class="" src="{{ asset('storage/product_images/' . $products->product_front) }}" alt="{{$products->product_front}}" width="250px">
+                                            </div>
 
                                             @error('product_front')
                                                 <span class="text-danger">{{$message}}</span>
@@ -73,10 +74,14 @@
                                         </div>
 
                                     <label for="inputCategory" class="col-form-label">Product Image (Right)</label>
-                                        <div class="d-flex align-items-center mb-3">
+                                        <div class="d-flex align-items-start mb-3">
                                             <input type="file" class="form-control" name="product_right" id="product_right" onchange="enableUpdateRight(this)" style="width: 108px;">
 
                                             <input type="text" class="form-control text-center fst-italic" id="product_right_display" aria-label="Username" aria-describedby="addon-wrapping"  value="{{ $products->product_right }}" readonly style="width: 50%;"/>
+
+                                            <div class="d-flex align-items-center justify-content-center mx-auto">
+                                                <img class="" src="{{ asset('storage/product_images/' . $products->product_right) }}" alt="{{$products->product_right}}" width="250px">
+                                            </div>
 
                                             @error('product_right')
                                                 <span class="text-danger">{{$message}}</span>
@@ -84,10 +89,14 @@
                                         </div>
 
                                     <label for="inputCategory" class="col-form-label">Product Image (Left)</label>
-                                        <div class="d-flex align-items-center mb-3">
+                                        <div class="d-flex align-items-start mb-3">
                                             <input type="file" class="form-control" name="product_left" id="product_left" onchange="enableUpdateLeft(this)" style="width: 108px;">
 
                                             <input type="text" class="form-control text-center fst-italic" id="product_left_display" aria-label="Username" aria-describedby="addon-wrapping"  value="{{ $products->product_left }}" readonly style="width: 50%;"/>
+
+                                            <div class="d-flex align-items-center justify-content-center mx-auto">
+                                                <img class="" src="{{ asset('storage/product_images/' . $products->product_left) }}" alt="{{$products->product_left}}" width="250px">
+                                            </div>
 
                                             @error('product_left')
                                                 <span class="text-danger">{{$message}}</span>
@@ -95,10 +104,14 @@
                                         </div>
 
                                     <label for="inputCategory" class="col-form-label">Product Image (Back)</label>
-                                        <div class="d-flex align-items-center mb-3">
+                                        <div class="d-flex align-items-start mb-3">
                                             <input type="file" class="form-control" name="product_back" id="product_back" onchange="enableUpdateBack(this)" style="width: 108px;">
 
                                             <input type="text" class="form-control text-center fst-italic" id="product_back_display" aria-label="Username" aria-describedby="addon-wrapping"  value="{{ $products->product_back }}" readonly style="width: 50%;"/>
+
+                                            <div class="d-flex align-items-center justify-content-center mx-auto">
+                                                <img class="" src="{{ asset('storage/product_images/' . $products->product_back) }}" alt="{{$products->product_back}}" width="250px">
+                                            </div>
 
                                             @error('product_back')
                                                 <span class="text-danger">{{$message}}</span>

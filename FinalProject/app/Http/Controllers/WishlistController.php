@@ -57,7 +57,7 @@ class WishlistController extends Controller
                 'created_at' => Carbon::now()
             ]);
 
-            return Redirect()->back()->with('success','Product Added to Wishlist');
+            return Redirect()->route('dashboard')->with('success','Product Added to Wishlist');
         }
 
         else
@@ -98,7 +98,7 @@ class WishlistController extends Controller
 
         $wishlistItem->forceDelete();
 
-        return redirect()->back()->with('success', 'Product Removed from Wishlist');
+        return redirect()->route('dashboard')->with('success', 'Product Removed from Wishlist');
     }
 
 
