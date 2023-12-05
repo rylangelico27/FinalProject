@@ -29,7 +29,7 @@
                 <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
             </div>
 
-            <x-input id="role" class="block mt-1 w-full" type="text" name="role" value="Customer" required autocomplete="new-password" hidden/>
+            <x-input id="role" class="block mt-1 w-full" type="text" name="role" value="Customer" required autocomplete="role" hidden/>
 
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                 <div class="mt-4">
