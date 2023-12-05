@@ -247,10 +247,17 @@
                             </form>
 
                             @if ($productCartExisting)
-                                <form class="mt-5" action="{{ route('DeleteCartProductView', ['cartID' => $productCartID, 'id' => $products->id]) }}" method="POST" style="margin-left: -143px;">
-                                    @csrf
-                                    <button class="addToCartSelected btn btn-lg px-5 mt-2" type="submit" id="addCartSelected">Remove from Cart</button>
-                                </form>
+                                @auth
+                                    <form class="mt-5" action="{{ route('DeleteCartProductView', ['cartID' => $productCartID, 'id' => $products->id]) }}" method="POST" style="margin-left: -143px;">
+                                        @csrf
+                                        <button class="addToCartSelected btn btn-lg px-5 mt-2" type="submit" id="addCartSelected">Remove from Cart</button>
+                                    </form>
+                                @else
+                                    <form class="mt-5" action="{{ route('login') }}" method="GET" style="margin-left: -143px;">
+                                        @csrf
+                                        <button class="addToCart btn btn-lg px-5 mt-2" type="submit" id="addCartSelected">Add to Cart</button>
+                                    </form>
+                                @endauth
                             @endif
 
                             @foreach ($wishlists as $wishlist)
@@ -264,10 +271,18 @@
                             @endforeach
 
                             @if ($productWishExisting)
-                                <form class="mt-5" action="{{ route('DeleteWishlistProductView', ['wishID' => $productWishID, 'id' => $products->id]) }}" method="POST">
-                                    @csrf
-                                    <button class="addToWishlistSelected btn btn-lg px-5 mx-3" type="submit" id="addWishSelected" style="margin-top: 8px;">Remove from Wishlist</button>
-                                </form>
+                                @auth
+                                    <form class="mt-5" action="{{ route('DeleteWishlistProductView', ['wishID' => $productWishID, 'id' => $products->id]) }}" method="POST">
+                                        @csrf
+                                        <button class="addToWishlistSelected btn btn-lg px-5 mx-3" type="submit" id="addWishSelected" style="margin-top: 8px;">Remove from Wishlist</button>
+                                    </form>
+                                @else
+                                    <form class="mt-5" action="{{ route('login') }}" method="GET">
+                                        @csrf
+                                        <button class="addToWishlist btn btn-lg px-5 mx-3" type="submit" id="addWishSelected" style="margin-top: 8px;">Remove from Wishlist</button>
+                                    </form>
+                                @endauth
+
                             @else
                                 @auth
                                     {{-- If the product is not found in any cart, show the "Add to Cart" button --}}
