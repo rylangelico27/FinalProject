@@ -17,7 +17,7 @@
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
 
 
-                    @if (Auth::user()->name == "Admin")
+                    @if (Auth::user()->role == "admin")
                         {{-- <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                             {{ __('Customer View') }}
                         </x-nav-link> --}}
@@ -28,6 +28,10 @@
 
                         <x-nav-link href="{{ route('ArchivedProducts') }}" :active="request()->routeIs('ArchivedProducts')">
                             {{ __('Archive') }}
+                        </x-nav-link>
+
+                        <x-nav-link href="{{ route('Users') }}" :active="request()->routeIs('Users')">
+                            {{ __('Users') }}
                         </x-nav-link>
                     @endif
 

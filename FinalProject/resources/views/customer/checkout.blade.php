@@ -43,8 +43,22 @@
                             @if (Route::has('login'))
                                 @auth
 
+                                    {{--
                                     <li class="navText nav-item">
                                         <a href="{{ url('/dashboard') }}" class="dropdown-item text-light font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
+                                    </li>
+                                    --}}
+
+                                    <li class="navText nav-item">
+                                        <a href="{{ route('OrderHistory') }}" class="navbarIcon text-light mx-2"><i class="bi bi-clock-history"></i></a>
+                                    </li>
+
+                                    <li class="navText nav-item">
+                                        <a href="{{ route('Wishlist') }}" class="navbarIcon text-light mx-2"><i class="bi bi-bag-heart-fill"></i></a>
+                                    </li>
+
+                                    <li class="navText nav-item">
+                                        <a href="{{ route('Cart') }}" class="navbarIcon text-light mx-2"><i class="bi bi-cart2"></i></a>
                                     </li>
 
                                 @else
@@ -138,14 +152,28 @@
                                 <td> {{ Auth::user()->name }} </td>
                             </tr>
 
+                        <form method="POST" action="{{ route('PlaceOrder', $amount) }}">
+                            @csrf
                             <tr>
                                 <td class="cartRow" style="font-weight: bold;  width:35%;">Shipment Address</td>
-                                <td> COMPLETE ADDRESS </td>
+                                {{-- <td> COMPLETE ADDRESS </td> --}}
+                                <td>
+                                    <input class="form-control" type="text" name="shipping_address" placeholder="Enter your desired shipping address">
+                                    @error('shipping_address')
+                                        <span class="text-danger">{{$message}}</span>
+                                    @enderror
+                                </td>
                             </tr>
 
                             <tr>
                                 <td class="cartRow" style="font-weight: bold;  width:35%;">Contact Number</td>
-                                <td> CONTACT NUMBER </td>
+                                {{-- <td> CONTACT NUMBER </td> --}}
+                                <td>
+                                    <input class="form-control" type="text" name="contact_number" placeholder="Enter your contact number">
+                                    @error('contact_number')
+                                        <span class="text-danger">{{$message}}</span>
+                                    @enderror
+                                </td>
                             </tr>
 
 
@@ -154,24 +182,25 @@
                                 <td>
                                     <div class="container row d-flex align-items-center">
                                         <div class="container col-xs-12 col-sm-6 col-md-6 col-lg-6 d-flex">
-                                            <input class="paymentOption mx-3" type="radio" name="Payment Method" value="GCash" onclick="showAmountToPay()" required><img class="imagePayment1 my-3" src="{{ asset('storage/PaymentOptions/Logo GCash.png') }}" alt="GCash" width="55%">
+                                            <input class="paymentOption mx-3" type="radio" name="payment_method" value="GCash" onclick="showAmountToPay()" required>
+                                            <img class="my-3" src="{{ asset('storage/PaymentOptions/Logo GCash.png') }}" alt="GCash" width="55%">
                                         </div>
 
                                         <div class="container col-xs-12 col-sm-6 col-md-6 col-lg-6 d-flex">
-                                            <input class="paymentOption mx-3" type="radio" name="Payment Method" value="PayPal" onclick="showAmountToPay()" required><img class="imagePayment1 my-3"
-                                            src="{{ asset('storage/PaymentOptions/Logo PayPal.png') }}" alt="PayPal" width="50%">
+                                            <input class="paymentOption mx-3" type="radio" name="payment_method" value="PayPal" onclick="showAmountToPay()" required>
+                                            <img class="my-3" src="{{ asset('storage/PaymentOptions/Logo PayPal.png') }}" alt="PayPal" width="50%">
                                         </div>
                                     </div>
 
                                     <div class="container row d-flex justify-content-center">
                                         <div class="container col-xs-12 col-sm-6 col-md-6 col-lg-6 d-flex">
-                                            <input class="paymentOption mx-3" type="radio" name="Payment Method" value="BDO" onclick="showAmountToPay()" required><img class="imagePayment2 my-3"
-                                            src="{{ asset('storage/PaymentOptions/Logo BDO.png') }}" alt="BDO" width="40%">
+                                            <input class="paymentOption mx-3" type="radio" name="payment_method" value="BDO" onclick="showAmountToPay()" required>
+                                            <img class="my-3" src="{{ asset('storage/PaymentOptions/Logo BDO.png') }}" alt="BDO" width="130px">
                                         </div>
 
                                         <div class="container col-xs-12 col-sm-6 col-md-6 col-lg-6 d-flex">
-                                            <input class="paymentOption mx-3" type="radio" name="Payment Method" value="BPI" onclick="showAmountToPay()" required><img class="imagePayment2 my-3"
-                                            src="{{ asset('storage/PaymentOptions/Logo BPI.png') }}" alt="BPI" width="35%">
+                                            <input class="paymentOption mx-3" type="radio" name="payment_method" value="BPI" onclick="showAmountToPay()" required>
+                                            <img class="my-3" src="{{ asset('storage/PaymentOptions/Logo BPI.png') }}" alt="BPI" width="35%">
                                         </div>
                                     </div>
                                 </td>
@@ -183,26 +212,15 @@
                                     {{ $amount }}
                                 </td>
                             </tr>
-
-                            <tr>
-                                <td colspan="2">
-                                    <div class="container d-flex justify-content-center m-auto my-2">
-                                        <form method="" action="">
-                                            @csrf
-                                            <input class="btn btn-danger btn-lg mx-5" type="submit" name="Place" value="Place Order" />
-                                        </form>
-
-                                        <form method="" action="">
-                                            @csrf
-                                            <input class="btn btn-danger btn-lg mx-5" type="submit" name="Pay" value="Pay Now" />
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
-
                         </tbody>
                     </table>
 
+                    <div class="container d-flex justify-content-end m-auto my-2">
+                        {{-- <form method="POST" action="{{ route('PlaceOrder') }}">
+                            @csrf --}}
+                            <button class="btn btn-danger btn-lg" type="submit">Place Order</button>
+                        </form>
+                    </div>
 
                 </div>
             </div>

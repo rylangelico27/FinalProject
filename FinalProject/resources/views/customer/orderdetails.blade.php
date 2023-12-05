@@ -33,25 +33,6 @@
                 <div class="container">
                     <a class="navbar-brand text-light" href="{{ route('dashboard') }}">ETech</a>
 
-                    @if (Auth::user()->role == "admin")
-                        {{-- <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                            {{ __('Customer View') }}
-                        </x-nav-link> --}}
-
-                        <x-nav-link href="{{ route('AllProducts') }}" :active="request()->routeIs('AllProducts')" style="margin-left: 3.3%;">
-                            {{ __('Content Management System') }}
-                        </x-nav-link>
-
-                        <x-nav-link href="{{ route('ArchivedProducts') }}" :active="request()->routeIs('ArchivedProducts')" style="margin-left: 3.7%;">
-                            {{ __('Archive') }}
-                        </x-nav-link>
-
-                        <x-nav-link href="{{ route('Users') }}" :active="request()->routeIs('Users')" style="margin-left: 2.5%;">
-                            {{ __('Users') }}
-                        </x-nav-link>
-
-                    @endif
-
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon text-light"></span>
@@ -124,7 +105,7 @@
         {{-- CART VIEW --}}
 
         <div class="authorContainer m-auto">
-            <h2 class="prodHead" style="margin-top:100px;">Cart</h2>
+            <h2 class="prodHead" style="margin-top:100px;">Order Details</h2>
         </div>
 
         <div class="cartCont container">
@@ -159,7 +140,6 @@
                                 <th class="tableHeadingProd" style="width: 45%;" colspan="2">Product</th>
                                 <th class="tableHeading">Product Price</th>
                                 <th class="tableHeading">Quantity</th>
-                                <th class="tableHeading">Action</th>
                                 <th class="tableHeading">Subtotal</th>
                             </tr>
                         </thead>
@@ -167,132 +147,71 @@
                         <tbody class="table-group-divider align-middle">
 
                             @php
-                                $totalAmount = 0;
-                                $shippingFee = 500;
-                                $isThereRecords = 0;
+                                $cartList = $orderItem->cart_id;
+                                $cartsArray = explode(',', $cartList);
 
+                                $totalAmount = 0;
                             @endphp
 
-                            @foreach ($carts as $cart)
-                                @foreach ($products as $product)
-                                    @if ($product->id == $cart->product_id)
+                            @foreach ($cartsArray as $specificCartID)
+                                @foreach ($carts as $cart)
 
-                                        <tr class="cartRow">
-                                            <td class="">
-                                                <img src="{{ asset('storage/product_images/' . $product->product_front) }}" alt="{{$product->product_front}}" style="width: 200px;">
-                                            </td>
-                                            <td style="font-size:large; font-weight: bold;"> {{ $product->product_name }} </td>
+                                    @if ($cart->id == $specificCartID)
+                                        @foreach ($products as $product)
+                                            @if ($product->id == $cart->product_id)
 
-                                            @php
-                                                // Format the number with currency symbol and commas
-                                                $formatted_number = '₱ ' . number_format($product->product_price, 2);
-                                            @endphp
+                                                <tr class="cartRow">
+                                                    <td class="">
+                                                        <img src="{{ asset('storage/product_images/' . $product->product_front) }}" alt="{{$product->product_front}}" style="width: 200px;">
+                                                    </td>
+                                                    <td style="font-size:large; font-weight: bold;"> {{ $product->product_name }} </td>
 
-                                            <td> {{ $formatted_number }} </td>
+                                                    @php
+                                                        // Format the number with currency symbol and commas
+                                                        $formatted_number = '₱ ' . number_format($product->product_price, 2);
+                                                    @endphp
 
-                                            <form method="POST" action="{{ route('UpdateCart', $cart->id) }}">
-                                                @csrf
-                                            <td>
-                                                <input class="quanInput mx-3" type="number" id="product_cart_qty" name="product_cart_qty" value="{{ $cart->product_cart_qty }}" min="1" max="5" onchange="enableBtn()" />
-                                            </td>
+                                                    <td> {{ $formatted_number }} </td>
 
-                                            <td>
-                                                <div class="d-flex justify-content-center">
-                                                        <button class="removeToWish btn btn-danger mx-2" id="updateBtn" type="submit" disabled>Update</button>
-                                                    </form>
-
-                                                    <form method="POST" action="{{ route('DeleteCart', $cart->id) }}">
+                                                    <form method="POST" action="{{ route('UpdateCart', $cart->id) }}">
                                                         @csrf
-                                                        <button class="removeToWish btn btn-danger mx-2" type="submit">Remove</button>
-                                                    </form>
-                                                </div>
-                                            </td>
+                                                    <td>{{ $cart->product_cart_qty }}</td>
 
-                                            @php
-                                                $subtotal = $cart->product_cart_qty * $product->product_price;
-                                                $totalAmount += $subtotal;
+                                                    @php
+                                                        $subtotal = $cart->product_cart_qty * $product->product_price;
+                                                        $totalAmount += $subtotal;
 
-                                                // Format the number with currency symbol and commas
-                                                $formatted_number = '₱ ' . number_format($subtotal, 2);
-                                            @endphp
+                                                        // Format the number with currency symbol and commas
+                                                        $formatted_number = '₱ ' . number_format($subtotal, 2);
+                                                    @endphp
 
-                                            <td id="product_price" style="text-align:center; font-weight: bold; font-size: large;"> {{ $formatted_number }} </td>
+                                                    <td id="product_price" style="text-align:center; font-size: large;"> {{ $formatted_number }} </td>
 
-                                            @php
-                                                $isThereRecords++;
-                                            @endphp
-                                        </tr>
+                                                </tr>
+
+                                            @endif
+                                        @endforeach
 
                                     @endif
+
                                 @endforeach
                             @endforeach
 
+                            <!-- Total Expense Row -->
+                            <tr class="cartRow" style="height:auto;">
+                                <td colspan="3" style="border: none; padding: 0;"></td>
+                                <td class="table-danger"></td>
+                                <td class="table-danger"></td>
+                            </tr>
+
+                            <tr class="text-center">
+                                <td colspan="3"></td>
+                                <td style="font-size: large; font-weight: bold; text-align:left;">Total Expense</td>
+                                <td style="font-size: large; font-weight: bold;">{{ $orderItem->payment_total }}</td>
+                            </tr>
+
                         </tbody>
                     </table>
-
-                    @if ($isThereRecords > 0)
-                        <div class="totalAmountTB d-flex justify-content-end">
-                            <table class="table ">
-                                <thead>
-                                    <tr class="table-danger" style="height:auto;">
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                    <tr>
-                                        @php
-                                            // Format the number with currency symbol and commas
-                                            $formatted_number = '₱ ' . number_format($totalAmount, 2);
-                                        @endphp
-
-                                        <td style="text-align:left; font-size: large;">Subtotal</td>
-                                        <td style="text-align:right; font-size: large;">{{ $formatted_number }}</td>
-                                    </tr>
-
-                                    <tr>
-                                        @php
-                                            // Format the number with currency symbol and commas
-                                            $formatted_number = '₱ ' . number_format($shippingFee, 2);
-                                        @endphp
-
-                                        <td style="text-align:left; font-size: large;">Shipping Fee</td>
-                                        <td style="text-align:right; font-size: large;">{{ $formatted_number }}</td>
-                                    </tr>
-
-                                    <tr>
-                                        @php
-                                            $amountToPay = $totalAmount + $shippingFee;
-                                            // Format the number with currency symbol and commas
-                                            $formatted_number = '₱ ' . number_format($amountToPay, 2);
-                                        @endphp
-
-                                        <td style="font-size: large; font-weight: bold; text-align:left;">Amount To Pay</td>
-                                        <td style="font-size: large; font-weight: bold; text-align:right;">{{ $formatted_number }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="d-flex justify-content-end mb-5">
-                            <form method="GET" action="{{ route('ProceedToCheckout', $formatted_number) }}">
-                                @csrf
-                                <button class="checkOut btn btn-danger" type="submit">Proceed to Checkout&#8594;</button>
-                            </form>
-                        </div>
-
-                    @else
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td class="text-center">No Items Found in Cart</td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                    @endif
-
 
 
                 </div>

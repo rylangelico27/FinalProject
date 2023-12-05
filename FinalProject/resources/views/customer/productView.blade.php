@@ -37,6 +37,25 @@
                         <a class="navbar-brand text-light" href="{{ route('welcome') }}">ETech</a>
                     @endauth
 
+                    @if (Auth::user()->role == "admin")
+                        {{-- <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                            {{ __('Customer View') }}
+                        </x-nav-link> --}}
+
+                        <x-nav-link href="{{ route('AllProducts') }}" :active="request()->routeIs('AllProducts')" style="margin-left: 3.3%;">
+                            {{ __('Content Management System') }}
+                        </x-nav-link>
+
+                        <x-nav-link href="{{ route('ArchivedProducts') }}" :active="request()->routeIs('ArchivedProducts')" style="margin-left: 3.7%;">
+                            {{ __('Archive') }}
+                        </x-nav-link>
+
+                        <x-nav-link href="{{ route('Users') }}" :active="request()->routeIs('Users')" style="margin-left: 2.5%;">
+                            {{ __('Users') }}
+                        </x-nav-link>
+
+                    @endif
+
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon text-light"></span>

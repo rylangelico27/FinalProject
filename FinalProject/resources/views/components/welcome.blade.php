@@ -117,14 +117,6 @@
                 </div>
 
                 <a class="prodLink" href=""><h4 class="headProdName">{{$product->product_name}}</h4></a>
-                <div class="rating d-flex align-items-center">
-                    <div class="d-block justify-content-between">
-                        <i class="starIcon bi bi-star-fill"></i>
-                        <i class="starIcon bi bi-star-fill"></i>
-                        <i class="starIcon bi bi-star-fill"></i>
-                        <i class="starIcon bi bi-star-half"></i>
-                    </div>
-                </div>
 
                 <div class="d-flex align-items-center">
                     <div class="">

@@ -3,8 +3,10 @@
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\WishlistController;
 use App\Models\Cart;
+use App\Models\OrderDetails;
 use Illuminate\Support\Facades\Route;
 
 //
@@ -57,6 +59,12 @@ Route::middleware([
 // Display All Products
     Route::get('/content-management-system', [ProductController::class, 'index'])->name('AllProducts')->middleware('checkUserRole:admin');
     Route::get('/content-management-system/archive', [ProductController::class, 'ArchivedProducts'])->name('ArchivedProducts')->middleware('checkUserRole:admin');
+    Route::get('/content-management-system/users', [UserController::class, 'Users'])->name('Users')->middleware('checkUserRole:admin');
+
+    // ADD Administrator
+    Route::get('/content-management-system/users/add-admin-form', [UserController::class, 'AddAdmin'])->name('AddAdmin')->middleware('checkUserRole:admin');
+    Route::post('/content-management-system/users/add-admin-form/insert', [UserController::class, 'NewAdmin'])->name('NewAdmin')->middleware('checkUserRole:admin');
+    Route::post('/content-management-system/users/delete-user/{id}', [UserController::class, 'DeleteUser'])->name('DeleteUser')->middleware('checkUserRole:admin');
 
 // Add Form
     Route::get('/content-management-system/add-product-form', [ProductController::class, 'AddForm'])->name('AddForm')->middleware('checkUserRole:admin');
@@ -129,13 +137,22 @@ Route::middleware([
 
 
 // Proceed to Checkout (from Cart)
-    Route::get('/dashboard/checkout/{amount}', [OrderController::class, 'index'])->name('ProceedToCheckout');
+    Route::get('/dashboard/checkout/{amount}', [OrderController::class, 'ProceedToCheckout'])->name('ProceedToCheckout');
+    Route::post('/dashboard/checkout/place-order/{amount}', [OrderController::class, 'PlaceOrder'])->name('PlaceOrder');
 
 // Order History
     Route::get('/dashboard/order-history', function () {
-        return view('customer.orderhistory');
+        $orderHistory = OrderDetails::all();
+        return view('customer.orderhistory', compact('orderHistory'));
     }) -> name('OrderHistory');
 
+    Route::post('/dashboard/order-history/pay-order/{id}', [OrderController::class, 'PayOrder'])->name('PayOrder');
+    Route::post('/dashboard/order-history/ship-order/{id}', [OrderController::class, 'ShipOrder'])->name('ShipOrder');
+    Route::post('/dashboard/order-history/order-shipped/{id}', [OrderController::class, 'OrderShipped'])->name('OrderShipped');
+    Route::post('/dashboard/order-history/receive-order/{id}', [OrderController::class, 'ReceiveOrder'])->name('ReceiveOrder');
+
+// Order Details
+    Route::get('/dashboard/order-details/{id}', [OrderController::class, 'OrderDetails'])->name('OrderDetails');
 
 
 

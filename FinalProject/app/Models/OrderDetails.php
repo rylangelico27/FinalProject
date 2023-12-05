@@ -15,9 +15,10 @@ class OrderDetails extends Model
 
     // To indicate what fieldname/s is/are fillable
     protected $fillable = [
-        "date",
         "payment_total",
         "payment_method",
+        "shipping_address",
+        "contact_number",
         "order_status",
         "cart_id",
         "user_id",

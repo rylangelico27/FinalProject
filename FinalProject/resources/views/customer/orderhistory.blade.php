@@ -33,6 +33,25 @@
                 <div class="container">
                     <a class="navbar-brand text-light" href="{{ route('dashboard') }}">ETech</a>
 
+                    @if (Auth::user()->role == "admin")
+                        {{-- <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                            {{ __('Customer View') }}
+                        </x-nav-link> --}}
+
+                        <x-nav-link href="{{ route('AllProducts') }}" :active="request()->routeIs('AllProducts')" style="margin-left: 3.3%;">
+                            {{ __('Content Management System') }}
+                        </x-nav-link>
+
+                        <x-nav-link href="{{ route('ArchivedProducts') }}" :active="request()->routeIs('ArchivedProducts')" style="margin-left: 3.7%;">
+                            {{ __('Archive') }}
+                        </x-nav-link>
+
+                        <x-nav-link href="{{ route('Users') }}" :active="request()->routeIs('Users')" style="margin-left: 2.5%;">
+                            {{ __('Users') }}
+                        </x-nav-link>
+
+                    @endif
+
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon text-light"></span>
@@ -102,7 +121,7 @@
             </nav>
         </header>
 
-        {{-- CART VIEW --}}
+        {{-- ORDER HISTORY VIEW --}}
 
         <div class="authorContainer m-auto">
             <h2 class="prodHead" style="margin-top:100px;">Order History</h2>
@@ -141,7 +160,8 @@
                                 <th class="tableHeading">Date</th>
                                 <th class="tableHeading">Amount to Pay</th>
                                 <th class="tableHeading">Payment Method</th>
-                                <th class="tableHeading" colspan="2">Status</th>
+                                <th class="tableHeading">Status</th>
+                                <th class="tableHeading">Action</th>
                             </tr>
                         </thead>
 
@@ -151,55 +171,100 @@
                                 $isThereRecords = 0;
                             @endphp
 
-{{--
-                            @foreach ($carts as $cart)
-                                @foreach ($products as $product)
-                                    @if ($product->id == $cart->product_id)
+
+                            @foreach ($orderHistory as $order)
+                                {{-- @foreach ($products as $product) --}}
+                                    {{-- @if ($product->id == $cart->product_id) --}}
+
+                                        @php
+                                            $year = \Carbon\Carbon::parse($order->created_at)->year;
+                                            $dateOnly = \Carbon\Carbon::parse($order->created_at)->toDateString();
+                                        @endphp
 
                                         <tr class="cartRow">
-                                            <td class="">
-                                                <img src="{{ asset('storage/product_images/' . $product->product_front) }}" alt="{{$product->product_front}}" style="width: 200px;">
-                                            </td>
-                                            <td style="font-size:large; font-weight: bold;"> {{ $product->product_name }} </td>
-
-                                            @php
-                                                // Format the number with currency symbol and commas
-                                                $formatted_number = '₱ ' . number_format($product->product_price, 2);
-                                            @endphp
-
-                                            <td> {{ $formatted_number }} </td>
-
-                                            <td>
-                                                <input class="quanInput mx-3" type="number" id="oldQuantity" name="prodQuantity" value="{{ $cart->product_cart_qty }}" />
+                                            <td class="fw-bold">
+                                                <a href="{{ route('OrderDetails', $order->id) }}"> 1-{{$year}}-0926-37755-{{$order->id}}</a>
                                             </td>
 
-                                            <td>
-                                                <div class="d-flex justify-content-center">
-                                                    <form method="POST" >
+                                            <td class="">{{ $dateOnly }}</td>
+                                            <td class="">{{ $order->payment_total }}</td>
+                                            <td class="">{{ $order->payment_method }}</td>
+
+                                            @if ($order->order_status == "Waiting for Payment")
+                                                <td class="">{{ $order->order_status }}</td>
+                                                <td class="">
+                                                    <form method="POST" action="{{ route('PayOrder', $order->id) }}">
                                                         @csrf
-                                                        <input class="quanInput mx-3" type="number" id="newQuantity" name="prodQuantity" value="@userCart.quantity" min="1" hidden
-                                                        onchange="enableBtn()">
-                                                        <button class="removeToWish btn btn-danger mx-2" id="updateBtn" type="submit" disabled>Update</button>
+                                                        <button class="btn btn-warning btn-md" type="submit">Pay Now</button>
                                                     </form>
+                                                </td>
 
-                                                    <form method="POST" action="{{ route('DeleteCart', $cart->id) }}">
-                                                        @csrf
-                                                        <button class="removeToWish btn btn-danger mx-2" type="submit">Remove</button>
-                                                    </form>
-                                                </div>
-                                            </td>
+                                            @else
 
-                                            <td id="product_price" style="text-align:center; font-weight: bold; font-size: large;"> {{ $formatted_number }} </td>
+                                                <td class="">{{ $order->order_status }}</td>
+
+                                                @if (Auth::user()->role == "admin")
+
+                                                    @if ($order->order_status == "Paid")
+                                                        <td class="">
+                                                            <form method="POST" action="{{ route('ShipOrder', $order->id) }}">
+                                                                @csrf
+                                                                <button class="btn btn-info btn-md" type="submit">Ship Now</button>
+                                                            </form>
+                                                        </td>
+
+                                                    @else
+                                                        @if ($order->order_status == "Order is being shipped")
+                                                            <td class="">
+                                                                <form method="POST" action="{{ route('OrderShipped', $order->id) }}">
+                                                                    @csrf
+                                                                    <button class="btn btn-info btn-md" type="submit">Complete</button>
+                                                                </form>
+                                                            </td>
+
+                                                        @else
+                                                            @if ($order->order_status == "Order has arrived")
+                                                                <td class=""></td>
+
+                                                            @else
+                                                                @if ($order->order_status == "Complete")
+                                                                    <td class=""></td>
+                                                                @endif
+
+                                                            @endif
+
+                                                        @endif
+
+                                                    @endif
+
+                                                @else
+
+                                                    @if ($order->order_status == "Order has arrived")
+                                                        <td class="">
+                                                            <form method="POST" action="{{ route('ReceiveOrder', $order->id) }}">
+                                                                @csrf
+                                                                <button class="btn btn-success btn-md" type="submit">Receive</button>
+                                                            </form>
+                                                        </td>
+
+                                                    @else
+                                                        <td class=""></td>
+
+                                                    @endif
+
+                                                @endif
+
+                                            @endif
 
                                             @php
                                                 $isThereRecords++;
                                             @endphp
                                         </tr>
 
-                                    @endif
-                                @endforeach
+                                    {{-- @endif --}}
+                                {{-- @endforeach --}}
                             @endforeach
- --}}
+
 
                         </tbody>
                     </table>
