@@ -5,13 +5,9 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a class="navbar-brand text-light" href="{{ route('dashboard') }}">ETech</a>
-
-                    {{-- <a href="{{ route('dashboard') }}"> --}}
-                        {{-- <x-application-mark class="block h-9 w-auto" /> --}}
-                        {{-- ETech --}}
-                    {{-- </a> --}}
+                    <a class="navbar-brand text-light" href="{{ route('dashboard') }}">   <img src="{{ asset('images/logo.png') }}" style="height: 40px" class="block h-9 w-auto"></a>
                 </div>
+                
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
@@ -22,15 +18,15 @@
                             {{ __('Customer View') }}
                         </x-nav-link> --}}
 
-                        <x-nav-link href="{{ route('AllProducts') }}" :active="request()->routeIs('AllProducts')">
-                            {{ __('Content Management System') }}
+                        <x-nav-link href="{{ route('AllProducts') }}" :active="request()->routeIs('AllProducts')" class="nav-link">
+                            {{ __('Products') }}
                         </x-nav-link>
 
-                        <x-nav-link href="{{ route('ArchivedProducts') }}" :active="request()->routeIs('ArchivedProducts')">
-                            {{ __('Archive') }}
+                        <x-nav-link href="{{ route('ArchivedProducts') }}" :active="request()->routeIs('ArchivedProducts')" class="nav-link">
+                            {{ __('Archives') }}
                         </x-nav-link>
 
-                        <x-nav-link href="{{ route('Users') }}" :active="request()->routeIs('Users')">
+                        <x-nav-link href="{{ route('Users') }}" :active="request()->routeIs('Users')" class="nav-link">
                             {{ __('Users') }}
                         </x-nav-link>
                     @endif
@@ -165,9 +161,19 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
+        @if (Auth::user()->role == "admin")
+            <x-responsive-nav-link href="{{ route('AllProducts') }}" :active="request()->routeIs('AllProducts')" class="nav-link">
+                {{ __('Products') }}
             </x-responsive-nav-link>
+
+            <x-responsive-nav-link  href="{{ route('ArchivedProducts') }}" :active="request()->routeIs('ArchivedProducts')" class="nav-link">
+                {{ __('Archives') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link href="{{ route('Users') }}" :active="request()->routeIs('Users')" class="nav-link">
+                {{ __('Users') }}
+            </x-responsive-nav-link>
+         @endif
         </div>
 
         <!-- Responsive Settings Options -->

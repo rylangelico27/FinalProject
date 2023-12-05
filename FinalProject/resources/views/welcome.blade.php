@@ -31,8 +31,9 @@
         <header>
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark fixed-top">
                 <div class="container">
-                    <a class="navbar-brand text-light" href="{{ route('welcome') }}">ETech</a>
-
+                    <div class="shrink-0 flex items-center">
+                        <a class="navbar-brand text-light" href="{{ route('welcome') }}">   <img src="{{ asset('images/logo.png') }}" style="height: 40px" class="block h-9 w-auto"></a>
+                    </div>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon text-light"></span>

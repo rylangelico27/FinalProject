@@ -18,9 +18,6 @@ html {
     font-size: 28px;
 }
 
-.cartRow td {
-    text-align: center;
-}
 
 
 
@@ -557,7 +554,6 @@ html {
 
 .tableHeadingProd {
     font-size: large;
-    text-align: center;
 }
 
 .removeToWish {
@@ -714,4 +710,41 @@ td {
 
 .paybutton {
 
+}
+
+.nav-link {
+    color: #ccc;
+    padding-top: 1.5rem!important;
+    padding-right: 0.25rem!important;
+    padding-left: 0.25rem!important;
+    line-height: 1.25rem;
+}
+.nav-linkO{
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+    color: #ccc;
+    padding-top: 1.5rem!important;
+    padding-right: 0.25rem!important;
+    padding-left: 0.25rem!important;
+    line-height: 1.25rem;
+    font-size: 18px;
+    display: block;
+    padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
+    text-decoration: none;
+    background: 0 0;
+    border: 0;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+}
+.nav-link:active, .nav-link:hover{
+  color: #FF523B !important;
+    transition: color 0.3s;
+    font-weight: bolder;
+}
+.nav-linkO:hover, .nav-linkO:active{
+    color: #FF523B !important;
+    transition: color 0.3s;
+    font-weight: bolder;
+}
+.nav-linkO{
+    padding-top: 1rem!important;
 }

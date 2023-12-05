@@ -31,26 +31,31 @@
         <header>
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark fixed-top">
                 <div class="container">
-                    <a class="navbar-brand text-light" href="{{ route('dashboard') }}">ETech</a>
-
-                    @if (Auth::user()->role == "admin")
-                        {{-- <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                            {{ __('Customer View') }}
-                        </x-nav-link> --}}
-
-                        <x-nav-link href="{{ route('AllProducts') }}" :active="request()->routeIs('AllProducts')" style="margin-left: 3.3%;">
-                            {{ __('Content Management System') }}
-                        </x-nav-link>
-
-                        <x-nav-link href="{{ route('ArchivedProducts') }}" :active="request()->routeIs('ArchivedProducts')" style="margin-left: 3.7%;">
-                            {{ __('Archive') }}
-                        </x-nav-link>
-
-                        <x-nav-link href="{{ route('Users') }}" :active="request()->routeIs('Users')" style="margin-left: 2.5%;">
-                            {{ __('Users') }}
-                        </x-nav-link>
-
-                    @endif
+                    <div class="flex">
+                        <!-- Logo -->
+                        <div class="shrink-0 flex items-center">
+                            <a class="navbar-brand text-light" href="{{ route('dashboard') }}">   <img src="{{ asset('images/logo.png') }}" style="height: 40px" class="block h-9 w-auto"></a>
+                        </div>
+                        <!-- Navigation Links -->
+                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            @if (Auth::user()->role == "admin")
+                                {{-- <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                                    {{ __('Customer View') }}
+                                </x-nav-link> --}}
+                                <x-nav-link href="{{ route('AllProducts') }}" :active="request()->routeIs('AllProducts')" class="nav-linkO">
+                                    {{ __('Products') }}
+                                </x-nav-link>
+        
+                                <x-nav-link href="{{ route('ArchivedProducts') }}" :active="request()->routeIs('ArchivedProducts')" class="nav-linkO">
+                                    {{ __('Archives') }}
+                                </x-nav-link>
+        
+                                <x-nav-link href="{{ route('Users') }}" :active="request()->routeIs('Users')" class="nav-linkO">
+                                    {{ __('Users') }}
+                                </x-nav-link>
+                            @endif
+                        </div>
+                    </div>
 
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -67,7 +72,6 @@
                                         <a href="{{ url('/dashboard') }}" class="dropdown-item text-light font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
                                     </li>
                                     --}}
-
                                     <li class="navText nav-item">
                                         <a href="{{ route('OrderHistory') }}" class="navbarIcon text-light mx-2"><i class="bi bi-clock-history"></i></a>
                                     </li>
