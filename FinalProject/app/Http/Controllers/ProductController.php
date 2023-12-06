@@ -21,6 +21,9 @@ class ProductController extends Controller
         $products = Products::latest()->paginate('10');
         return view('admin.product.contentmanagementsystem', compact('products'));
     }
+    public function index2() {
+        return view('admin.product.adminhome');
+    }
 
     public function AddForm() {
         return view('admin.product.addproduct');

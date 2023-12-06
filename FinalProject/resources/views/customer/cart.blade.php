@@ -34,7 +34,7 @@
                     <div class="flex">
                         <!-- Logo -->
                         <div class="shrink-0 flex items-center">
-                            <a class="navbar-brand text-light" href="{{ route('dashboard') }}">   <img src="{{ asset('images/logo.png') }}" style="height: 40px" class="block h-9 w-auto"></a>
+                            <a class="navbar-brand text-light" href="{{ route('dashboard') }}">   <img src="{{ asset('images/logo2.png') }}" style="height: 40px" class="block h-9 w-auto"></a>
                         </div>
                         <!-- Navigation Links -->
                         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">

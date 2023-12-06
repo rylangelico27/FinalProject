@@ -34,7 +34,7 @@
                     <div class="flex">
                         <!-- Logo -->
                         <div class="shrink-0 flex items-center">
-                            <a class="navbar-brand text-light" href="{{ route('dashboard') }}">   <img src="{{ asset('images/logo.png') }}" style="height: 40px" class="block h-9 w-auto"></a>
+                            <a class="navbar-brand text-light" href="{{ route('dashboard') }}">   <img src="{{ asset('images/logo2.png') }}" style="height: 40px" class="block h-9 w-auto"></a>
                         </div>
                         <!-- Navigation Links -->
                         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
@@ -53,9 +53,13 @@
                                 <x-nav-link href="{{ route('Users') }}" :active="request()->routeIs('Users')" class="nav-linkO">
                                     {{ __('Users') }}
                                 </x-nav-link>
+                                <x-nav-link href="{{ route('OrderHistory') }}" :active="request()->routeIs('OrderHistory')" class="nav-linkO">
+                                    {{ __('Orders') }}
+                                </x-nav-link>
                             @endif
                         </div>
                     </div>
+
 
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -64,7 +68,7 @@
 
                     <div class="navbar-collapse collapse">
                         <ul class="navbar-nav ms-auto d-flex justify-content-between align-items-center">
-                            @if (Route::has('login'))
+                            @if (Auth::user()->role == "Customer")
                                 @auth
 
                                     {{--
@@ -83,6 +87,7 @@
                                     <li class="navText nav-item">
                                         <a href="{{ route('Cart') }}" class="navbarIcon text-light mx-2"><i class="bi bi-cart2"></i></a>
                                     </li>
+                                    
 
                                 @else
 

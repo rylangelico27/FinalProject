@@ -90,7 +90,13 @@
             </div>
         </div>
     </div>
-
+    <footer>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark fixed-bottom">
+            <div class="container d-flex justify-content-center">
+                <a class="navbar-brand text-light text-center" style="font-size: medium;">© 2023 - Ecommerce Software by ETech</a>
+            </div>
+        </nav>
+    </footer>
     <script type="text/javascript">
 
         function formatAmount() {

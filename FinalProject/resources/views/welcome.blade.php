@@ -32,8 +32,9 @@
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark fixed-top">
                 <div class="container">
                     <div class="shrink-0 flex items-center">
-                        <a class="navbar-brand text-light" href="{{ route('welcome') }}">   <img src="{{ asset('images/logo.png') }}" style="height: 40px" class="block h-9 w-auto"></a>
+                        <a class="navbar-brand text-light" href="{{ route('welcome') }}">   <img src="{{ asset('images/logo2.png') }}" style="height: 40px" class="block h-9 w-auto"></a>
                     </div>
+                    
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon text-light"></span>
@@ -51,12 +52,8 @@
 
                                     @else {{-- Customer --}}
 
-                                        <li class="navText nav-item">
-                                            <a href="{{ url('/dashboard') }}" class="dropdown-item text-light font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
-                                        </li>
-
-{{--
-                                        <li class="navbarIcon nav-item">
+                                    
+                                        {{-- <li class="navbarIcon nav-item">
                                             <a href="" class="dropdown-item text-light mx-2"><i class="bi bi-bag-heart-fill"></i></a>
                                         </li>
 
@@ -74,11 +71,12 @@
                                                     <a href="{{ route('welcome') }}" type="button" class="dropdown-item">Sign Out</a>
                                                 </li>
                                             </ul>
-                                        </div>
- --}}
+                                        </div> --}}
+                        
+                                       
                                     @endif
 
-                                @else
+                             @else
 
                                     <li class="navbarIcon nav-item">
                                         <a href="{{ route('login') }}" class="dropdown-item text-light mx-2"><i class="bi bi-clock-history"></i></a>

@@ -28,7 +28,6 @@ Route::get('/', function () {
     if (auth()->check()) {
         return redirect()->route('dashboard');
     }
-
     else {
         $products = Products::latest()->paginate('25');
         return view('welcome', compact('products'));
@@ -41,6 +40,9 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
+        if (auth()->user()->role === 'admin') {
+            return redirect()->route('adminhome');
+        }
         //$products = Products::all();
         $products = Products::latest()->paginate('25');
         $carts = Cart::all();
@@ -55,6 +57,8 @@ Route::middleware([
     })->name('contentmanagementsystem');
     */
 });
+
+Route::get('/adminhome', [ProductController::class, 'index2'])->name('adminhome')->middleware('checkUserRole:admin');
 
 // Display All Products
     Route::get('/content-management-system', [ProductController::class, 'index'])->name('AllProducts')->middleware('checkUserRole:admin');
@@ -153,4 +157,3 @@ Route::middleware([
 
 // Order Details
     Route::get('/dashboard/order-details/{id}', [OrderController::class, 'OrderDetails'])->name('OrderDetails');
-
