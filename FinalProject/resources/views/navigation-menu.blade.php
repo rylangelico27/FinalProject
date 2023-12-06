@@ -7,7 +7,7 @@
                 <div class="shrink-0 flex items-center">
                     <a class="navbar-brand text-light" href="{{ route('dashboard') }}">   <img src="{{ asset('images/logo2.png') }}" style="height: 40px" class="block h-9 w-auto"></a>
                 </div>
-                
+
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
@@ -37,10 +37,10 @@
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
-                @if (Auth::user()->role == "Customer")
-                <a href="{{ route('OrderHistory') }}" class="navbarIcon text-light mx-2"><i class="bi bi-clock-history"></i></a>
-                <a href="{{ route('Wishlist') }}" class="navbarIcon text-light mx-2"><i class="bi bi-bag-heart-fill"></i></a>
-                <a href="{{ route('Cart') }}" class="navbarIcon text-light mx-2"><i class="bi bi-cart2"></i></a>
+                @if (Auth::user()->role == "Customer" || Auth::user()->role == "customer")
+                    <a href="{{ route('OrderHistory') }}" class="text-light mx-2" style="font-size: 30px;"><i class="bi bi-clock-history"></i></a>
+                    <a href="{{ route('Wishlist') }}" class="text-light mx-2" style="font-size: 30px;"><i class="bi bi-bag-heart-fill"></i></a>
+                    <a href="{{ route('Cart') }}" class="text-light mx-2" style="font-size: 30px;"><i class="bi bi-cart2"></i></a>
                 @endif
                 <!-- Teams Dropdown -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())

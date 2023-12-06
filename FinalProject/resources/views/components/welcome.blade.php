@@ -1,3 +1,6 @@
+<!-- Link to the external CSS file -->
+<link rel="stylesheet" href="{{ asset('css/site.css') }}">
+
 <!--  CAROUSEL  -->
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel"  style="margin-top: -1px;">
     <div class="carousel-indicators">

@@ -49,7 +49,8 @@
     <div class="authentication-card">
         <div class="authentication-card-logo">
             <!-- Replace with your logo image -->
-            <img src="{{ asset('/storage/Company Logo.png') }}" alt="Logo">
+            {{-- <img src="{{ asset('/storage/Company Logo.png') }}" alt="Logo"> --}}
+            <img src="{{ asset('images/logo2.png') }}" style="height: 40px" class="block h-9 w-auto" alt="Logo">
         </div>
 
         <!-- Validation Errors -->
