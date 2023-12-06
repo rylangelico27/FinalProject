@@ -55,6 +55,7 @@
                                 <x-nav-link href="{{ route('Users') }}" :active="request()->routeIs('Users')" class="nav-linkO">
                                     {{ __('Users') }}
                                 </x-nav-link>
+
                                 <x-nav-link href="{{ route('OrderHistory') }}" :active="request()->routeIs('OrderHistory')" class="nav-linkO">
                                     {{ __('Orders') }}
                                 </x-nav-link>
@@ -89,7 +90,6 @@
                                     <li class="navText nav-item">
                                         <a href="{{ route('Cart') }}" class="navbarIcon text-light mx-2"><i class="bi bi-cart2"></i></a>
                                     </li>
-
 
                                 @else
 
@@ -197,13 +197,13 @@
                                                 <a href="{{ route('OrderDetails', $order->id) }}"> 1-{{$year}}-0926-37755-{{$order->id}}</a>
                                             </td>
 
-                                            <td class="">{{ $dateOnly }}</td>
-                                            <td class="">{{ $order->payment_total }}</td>
-                                            <td class="">{{ $order->payment_method }}</td>
+                                            <td class="tdCenter">{{ $dateOnly }}</td>
+                                            <td class="tdCenter">{{ $order->payment_total }}</td>
+                                            <td class="tdCenter">{{ $order->payment_method }}</td>
 
                                             @if ($order->order_status == "Waiting for Payment")
-                                                <td class="">{{ $order->order_status }}</td>
-                                                <td class="">
+                                                <td class="tdCenter">{{ $order->order_status }}</td>
+                                                <td class="tdCenter">
                                                     <form method="POST" action="{{ route('PayOrder', $order->id) }}">
                                                         @csrf
                                                         <button class="btn btn-warning btn-md" type="submit">Pay Now</button>
@@ -212,12 +212,12 @@
 
                                             @else
 
-                                                <td class="">{{ $order->order_status }}</td>
+                                                <td class="tdCenter">{{ $order->order_status }}</td>
 
                                                 @if (Auth::user()->role == "admin")
 
                                                     @if ($order->order_status == "Paid")
-                                                        <td class="">
+                                                        <td class="tdCenter">
                                                             <form method="POST" action="{{ route('ShipOrder', $order->id) }}">
                                                                 @csrf
                                                                 <button class="btn btn-info btn-md" type="submit">Ship Now</button>
@@ -226,7 +226,7 @@
 
                                                     @else
                                                         @if ($order->order_status == "Order is being shipped")
-                                                            <td class="">
+                                                            <td class="tdCenter">
                                                                 <form method="POST" action="{{ route('OrderShipped', $order->id) }}">
                                                                     @csrf
                                                                     <button class="btn btn-info btn-md" type="submit">Complete</button>
@@ -235,11 +235,11 @@
 
                                                         @else
                                                             @if ($order->order_status == "Order has arrived")
-                                                                <td class=""></td>
+                                                                <td class="tdCenter"></td>
 
                                                             @else
                                                                 @if ($order->order_status == "Complete")
-                                                                    <td class=""></td>
+                                                                    <td class="tdCenter"></td>
                                                                 @endif
 
                                                             @endif
@@ -251,7 +251,7 @@
                                                 @else
 
                                                     @if ($order->order_status == "Order has arrived")
-                                                        <td class="">
+                                                        <td class="tdCenter">
                                                             <form method="POST" action="{{ route('ReceiveOrder', $order->id) }}">
                                                                 @csrf
                                                                 <button class="btn btn-success btn-md" type="submit">Receive</button>
@@ -259,7 +259,7 @@
                                                         </td>
 
                                                     @else
-                                                        <td class=""></td>
+                                                        <td class="tdCenter"></td>
 
                                                     @endif
 

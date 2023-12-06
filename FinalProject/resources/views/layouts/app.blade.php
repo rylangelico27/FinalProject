@@ -24,6 +24,9 @@
         <!-- BOOTSTRAP ICONS-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
 
+        {{-- <!-- Link to the external CSS file -->
+        <link rel="stylesheet" href="{{ asset('css/site.css') }}"> --}}
+
     </head>
     <body class="font-sans antialiased" onload="formatAmount()">
         <x-banner />

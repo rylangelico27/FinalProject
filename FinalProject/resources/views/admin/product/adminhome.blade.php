@@ -20,6 +20,9 @@
 <body>
     <x-app-layout>
 
+        <!-- Link to the external CSS file -->
+        <link rel="stylesheet" href="{{ asset('css/site.css') }}">
+
         <div class="container mt-5">
             <div class="row justify-content-center gx-3">
                 <div class="col-md-6 bg-white rounded p-4">
@@ -30,8 +33,8 @@
                     </h2>
                     <p><br/>ETech is a user-friendly website that is catered for technophiles.  The website also provides a variety of features and functionalities to guarantee a pleasant and informative experience for the user.
                     </p>
-                    <p>To maintain an accurate and up-to-date library, it offers a specialized Content Management System (CMS) that enables the administrator to simply manage the laptop’s details and prices. 
-                    </p> 
+                    <p>To maintain an accurate and up-to-date library, it offers a specialized Content Management System (CMS) that enables the administrator to simply manage the laptop’s details and prices.
+                    </p>
 
                 </div>
                 <div class="col-md-6 bg-white rounded p-4 d-flex flex-column">
@@ -66,7 +69,7 @@
                             </div>
                         </a>
                     </div>
-                    
+
                     <div class="flex-grow-1 mb-3">
                         <a href="{{ route('Users') }}" class="text-decoration-none">
                         <div class="bg-light rounded p-3 h-100 hover-shadow d-flex align-items-center">

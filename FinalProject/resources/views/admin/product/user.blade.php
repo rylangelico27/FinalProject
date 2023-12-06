@@ -1,4 +1,7 @@
 <x-app-layout>
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="{{ asset('css/site.css') }}">
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="container">

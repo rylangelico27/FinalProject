@@ -195,15 +195,15 @@
                                                 $formatted_number = '₱ ' . number_format($product->product_price, 2);
                                             @endphp
 
-                                            <td> {{ $formatted_number }} </td>
+                                            <td class="tdCenter"> {{ $formatted_number }} </td>
 
                                             <form method="POST" action="{{ route('UpdateCart', $cart->id) }}">
                                                 @csrf
                                             <td>
-                                                <input class="quanInput mx-3" type="number" id="product_cart_qty" name="product_cart_qty" value="{{ $cart->product_cart_qty }}" min="1" max="5" onchange="enableBtn( {{ $cart->id }} )" />
+                                                <input class="quanInput mx-3" type="number" id="product_cart_qty" name="product_cart_qty" value="{{ $cart->product_cart_qty }}" min="1" max="5" onchange="enableBtn( {{ $cart->id }} )"/>
                                             </td>
 
-                                            <td>
+                                            <td class="tdCenter">
                                                 <div class="d-flex justify-content-center">
                                                         <button class="removeToWish btn btn-danger mx-2" id="updateBtn-{{ $cart->id }}" type="submit" disabled>Update</button>
                                                     </form>

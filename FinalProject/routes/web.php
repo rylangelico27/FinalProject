@@ -65,6 +65,12 @@ Route::get('/adminhome', [ProductController::class, 'index2'])->name('adminhome'
     Route::get('/content-management-system/archive', [ProductController::class, 'ArchivedProducts'])->name('ArchivedProducts')->middleware('checkUserRole:admin');
     Route::get('/content-management-system/users', [UserController::class, 'Users'])->name('Users')->middleware('checkUserRole:admin');
 
+    // Order History
+    Route::get('/content-management-system/order-history', function () {
+        $orderHistory = OrderDetails::all();
+        return view('admin.product.order', compact('orderHistory'));
+    }) -> name('OrderHistoryAdmin');
+
     // ADD Administrator
     Route::get('/content-management-system/users/add-admin-form', [UserController::class, 'AddAdmin'])->name('AddAdmin')->middleware('checkUserRole:admin');
     Route::post('/content-management-system/users/add-admin-form/insert', [UserController::class, 'NewAdmin'])->name('NewAdmin')->middleware('checkUserRole:admin');

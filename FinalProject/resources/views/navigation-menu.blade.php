@@ -8,7 +8,6 @@
                     <a class="navbar-brand text-light" href="{{ route('dashboard') }}">   <img src="{{ asset('images/logo2.png') }}" style="height: 40px" class="block h-9 w-auto"></a>
                 </div>
 
-
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     @if (Auth::user()->role == "admin")
@@ -27,13 +26,13 @@
                         <x-nav-link href="{{ route('Users') }}" :active="request()->routeIs('Users')" class="nav-link">
                             {{ __('Users') }}
                         </x-nav-link>
-                        <x-nav-link href="{{ route('OrderHistory') }}" :active="request()->routeIs('OrderHistory')" class="nav-link">
+
+                        <x-nav-link href="{{ route('OrderHistoryAdmin') }}" :active="request()->routeIs('OrderHistoryAdmin')" class="nav-link">
                             {{ __('Orders') }}
                         </x-nav-link>
                     @endif
-
-
                 </div>
+
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">

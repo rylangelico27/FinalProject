@@ -55,7 +55,7 @@
                         @endif
 
                     @else
-                        <a class="navbar-brand text-light" href="{{ route('dashboard') }}">
+                        <a class="navbar-brand text-light" href="{{ route('welcome') }}">
                             <img src="{{ asset('images/logo2.png') }}" style="height: 40px" class="block h-9 w-auto">
                         </a>
                     @endauth

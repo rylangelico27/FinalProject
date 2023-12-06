@@ -31,9 +31,37 @@
         <header>
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark fixed-top">
                 <div class="container">
-                    <a class="navbar-brand text-light" href="{{ route('dashboard') }}">
-                        <img src="{{ asset('images/logo2.png') }}" style="height: 40px" class="block h-9 w-auto">
-                    </a>
+                    <div class="flex">
+                        <!-- Logo -->
+                        <div class="shrink-0 flex items-center">
+                            <a class="navbar-brand text-light" href="{{ route('dashboard') }}">
+                                <img src="{{ asset('images/logo2.png') }}" style="height: 40px" class="block h-9 w-auto">
+                            </a>
+                        </div>
+                        <!-- Navigation Links -->
+                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            @if (Auth::user()->role == "admin")
+                                {{-- <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                                    {{ __('Customer View') }}
+                                </x-nav-link> --}}
+                                <x-nav-link href="{{ route('AllProducts') }}" :active="request()->routeIs('AllProducts')" class="nav-linkO">
+                                    {{ __('Products') }}
+                                </x-nav-link>
+
+                                <x-nav-link href="{{ route('ArchivedProducts') }}" :active="request()->routeIs('ArchivedProducts')" class="nav-linkO">
+                                    {{ __('Archives') }}
+                                </x-nav-link>
+
+                                <x-nav-link href="{{ route('Users') }}" :active="request()->routeIs('Users')" class="nav-linkO">
+                                    {{ __('Users') }}
+                                </x-nav-link>
+
+                                <x-nav-link href="{{ route('OrderHistory') }}" :active="request()->routeIs('OrderHistory')" class="nav-linkO">
+                                    {{ __('Orders') }}
+                                </x-nav-link>
+                            @endif
+                        </div>
+                    </div>
 
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -42,7 +70,7 @@
 
                     <div class="navbar-collapse collapse">
                         <ul class="navbar-nav ms-auto d-flex justify-content-between align-items-center">
-                            @if (Route::has('login'))
+                            @if (Auth::user()->role == "Customer")
                                 @auth
 
                                     {{--
@@ -173,11 +201,11 @@
                                                         $formatted_number = '₱ ' . number_format($product->product_price, 2);
                                                     @endphp
 
-                                                    <td> {{ $formatted_number }} </td>
+                                                    <td class="tdCenter"> {{ $formatted_number }} </td>
 
                                                     <form method="POST" action="{{ route('UpdateCart', $cart->id) }}">
                                                         @csrf
-                                                    <td>{{ $cart->product_cart_qty }}</td>
+                                                    <td class="tdCenter">{{ $cart->product_cart_qty }}</td>
 
                                                     @php
                                                         $subtotal = $cart->product_cart_qty * $product->product_price;

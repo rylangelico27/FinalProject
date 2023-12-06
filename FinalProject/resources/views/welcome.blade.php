@@ -32,9 +32,11 @@
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark fixed-top">
                 <div class="container">
                     <div class="shrink-0 flex items-center">
-                        <a class="navbar-brand text-light" href="{{ route('welcome') }}">   <img src="{{ asset('images/logo2.png') }}" style="height: 40px" class="block h-9 w-auto"></a>
+                        <a class="navbar-brand text-light" href="{{ route('welcome') }}">
+                            <img src="{{ asset('images/logo2.png') }}" style="height: 40px" class="block h-9 w-auto">
+                        </a>
                     </div>
-                    
+
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon text-light"></span>
@@ -52,7 +54,7 @@
 
                                     @else {{-- Customer --}}
 
-                                    
+
                                         {{-- <li class="navbarIcon nav-item">
                                             <a href="" class="dropdown-item text-light mx-2"><i class="bi bi-bag-heart-fill"></i></a>
                                         </li>
@@ -72,8 +74,8 @@
                                                 </li>
                                             </ul>
                                         </div> --}}
-                        
-                                       
+
+
                                     @endif
 
                              @else
